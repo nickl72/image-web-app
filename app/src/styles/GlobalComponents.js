@@ -24,3 +24,15 @@ export const FullScreenModal = styled(Modal)`
     top: 0;
 `
 
+export const Anchor = styled.div`
+    text-decoration: none;
+    background: ${colors.green};
+    color: ${colors.white};
+    padding: 1em;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.green},.5);
+    cursor: pointer;
+    &:hover {
+        box-shadow: none;
+    }
+`
