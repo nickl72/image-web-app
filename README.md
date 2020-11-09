@@ -31,4 +31,6 @@ This is a basic Image editing app. Post MVP goals are to use Machine learning to
 * Use GAN to generate image with multiple styles 
 * Users can train their own model (i.e. create custom attributes)
 
-
+# Wireframe
+![](/planning/planning/Wireframe-Home.png)
+![](/planning/planning/Wireframe-Edit.png)
