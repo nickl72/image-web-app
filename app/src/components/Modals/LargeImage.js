@@ -13,3 +13,5 @@ const LargeImage = () => {
         </div>
     )
 }
+
+export default LargeImage
