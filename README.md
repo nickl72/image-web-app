@@ -38,3 +38,7 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
 
 # ERD
 ![](/planning/ERD.png)
+
+# Technologies Used
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
