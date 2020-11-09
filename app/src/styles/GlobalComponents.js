@@ -24,7 +24,7 @@ export const FullScreenModal = styled(Modal)`
     top: 0;
 `
 
-export const Anchor = styled.div`
+const defaultClickable = `
     text-decoration: none;
     background: ${colors.green};
     color: ${colors.white};
@@ -35,4 +35,15 @@ export const Anchor = styled.div`
     &:hover {
         box-shadow: none;
     }
+`
+export const Anchor = styled.a`
+    ${defaultClickable}
+`
+
+export const Button = styled.button`
+    ${defaultClickable}
+`
+
+export const Submit = styled.input`
+    ${defaultClickable}
 `
