@@ -1,9 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import colors from './colors';
 
 export const StyledHeader = styled.header`
     padding: 0 1em;
-    background-color: #7952B3;
+    background-color: ${colors.purple};
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: ${colors.black};
 `
