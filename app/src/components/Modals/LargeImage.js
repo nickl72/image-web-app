@@ -1,8 +1,9 @@
 import React from 'react';
+import { FullScreenModal } from '../../styles/GlobalComponents'
 
 const LargeImage = () => {
     return (
-        <div>
+        <FullScreenModal>
             <div>
                 <a href='#'>Creator's page</a>
                 <a href='#'>previous</a>
@@ -10,7 +11,7 @@ const LargeImage = () => {
                 <a href='#'>next</a>
                 <a href='#'>Image Actions</a>
             </div>
-        </div>
+        </FullScreenModal>
     )
 }
 

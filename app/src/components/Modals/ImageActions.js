@@ -1,13 +1,17 @@
 import React from 'react';
+import { Modal } from '../../styles/GlobalComponents'
+
 
 const ImageActions = () => {
     return (
-        <div>
-            <a href='#'>Like/save</a>
-            <a href='#'>Download</a>
-            <a href='#'>Open in Editor</a>
-            <a href='#'>User</a>
-        </div>
+        <Modal>
+            <div>
+                <a href='#'>Like/save</a>
+                <a href='#'>Download</a>
+                <a href='#'>Open in Editor</a>
+                <a href='#'>User</a>
+            </div>
+        </Modal>
     )
 }
 
