@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image} from '../styles/Home'
 
 const Home = () => {
     const images = []
@@ -10,7 +11,7 @@ const Home = () => {
 
     return (
         <>
-            { images.map((url, key) => <img src={url} key={key} alt='' />)}
+            { images.map((url, key) => <Image src={url} key={key} alt='' />)}
         </>
     )
 }
