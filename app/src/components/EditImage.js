@@ -32,6 +32,7 @@ const EditImage = () => {
             </div>
             <div className='image'>
                 <img src='https://picsum.photos/1000/1000?random=22' alt='' />
+                <input type='range' />
             </div>
         </Edit>
     )
