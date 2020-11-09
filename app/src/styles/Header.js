@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
-export const StyledFooter = styled.footer`
+export const StyledHeader = styled.header`
     padding: 0 1em;
+    background-color: purple;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-    background-color: grey;
 `

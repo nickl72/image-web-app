@@ -1,11 +1,14 @@
 import React from 'react'
+import { StyledHeader } from '../styles/Header'
 
 const Header = () => {
     return(
-        <header>
+        <StyledHeader>
             <h1>Images</h1>
             <input type='text' placeholder='Search' />
             <a href='#'>Log In</a>
-        </header>
+        </StyledHeader>
     )
 }
+
+export default Header
