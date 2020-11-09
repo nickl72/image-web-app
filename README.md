@@ -1,7 +1,8 @@
 # Image Web App
 
 # Project Goals
-## MVP 
+ 
+## Bronze
 
  * web based image editor
  * User Auth
@@ -11,15 +12,12 @@
  * Users can create images to ASCII
  * Images can be saved/downloaded after editing
  * Use Lorem Picsum/unsplash API to get random images to use
- 
-## Bronze
 
+## Silver 
  * ASCII images can be downloaded as Text or pre styled HTML 
  * HTML files incorporate compressability options (using javascript)
-
-# Silver 
-
-# Gold
+ 
+## Gold
 
 * Use GAN to add style/pattern to an image
 * Use GAN to generate images with a given attribute
@@ -28,3 +26,5 @@
 
 * Use GAN to generate image with multiple styles 
 * Users can train their own model (i.e. create custom attributes)
+
+
