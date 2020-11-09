@@ -1,0 +1,5 @@
+White: #FFFFFF
+Carolina Blue: #449DD1
+Mantis: #7AC74F
+Royal Purple: #7952B3
+Dark Lava: #453F3C
