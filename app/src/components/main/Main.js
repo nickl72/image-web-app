@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectUser } from '../redux/features/userSlice'
+import { selectUser } from '../../redux/features/userSlice'
 
-import EditImage from './EditImage';
-import Home from './Home';
+import EditImage from '../EditImage';
+import Home from '../Home';
 
 
 const Main = () => {
