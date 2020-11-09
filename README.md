@@ -32,5 +32,9 @@ This is a basic Image editing app. Post MVP goals are to use Machine learning to
 * Users can train their own model (i.e. create custom attributes)
 
 # Wireframe
-![](/planning/planning/Wireframe-Home.png)
-![](/planning/planning/Wireframe-Edit.png)
+![](/planning/Wireframe-Home.png)
+# 
+![](/planning/Wireframe-Edit.png)
+
+# ERD
+![](/planning/ERD.png)
