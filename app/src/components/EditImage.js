@@ -10,19 +10,28 @@ const EditImage = () => {
                 <input type='range' />
                 <h3>Blur</h3>
                 <input type='range' />
-                <h3>Red</h3>
+                <h3>Color</h3>
+                <h4>Red</h4>
                 <input type='range' />
-                <h3>Green</h3>
+                <h4>Green</h4>
                 <input type='range' />
-                <h3>Blue</h3>
+                <h4>Blue</h4>
                 <input type='range' />
                 <h3>Insert Image</h3>
                 <p>upload: </p><input type='text' />
-                <p>select from library</p><input type='text' />
+                <p>select from library</p>
+                <input type='text' />
+                <p><a href='#'>Crop</a></p>
+
+                <p><a href='#'>download image</a></p>
+                <p>Download as: </p><select>
+                    <option>JEPG</option>
+                    <option>ASCII</option>
+                </select>
 
             </div>
             <div className='image'>
-                <img src='https://picsum.photos/200/300?random=22' alt='' />
+                <img src='https://picsum.photos/1000/1000?random=22' alt='' />
             </div>
         </Edit>
     )
