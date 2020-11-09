@@ -3,18 +3,19 @@
 # Project Goals
 ## MVP 
 
- * web based image processor
+ * web based image editor
  * User Auth
  * Users can log in to view and edit their uploaded images
  * Image editing capabilities handled on back end with Python (plan to use Pillow Package)
  * Front end has option to render on change or batch changes
  * Users can create images to ASCII
- * images can be saved/downloaded after editing
+ * Images can be saved/downloaded after editing
+ * Use Lorem Picsum/unsplash API to get random images to use
  
 ## Bronze
 
  * ASCII images can be downloaded as Text or pre styled HTML 
- * HTML files incorporate compressability options
+ * HTML files incorporate compressability options (using javascript)
 
 # Silver 
 
