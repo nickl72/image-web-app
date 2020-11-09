@@ -1,5 +1,5 @@
 # Image Web App
-This is a basic Image editing app. Post MVP goals are to use Machine learning to generate images with certain attributes and add an artistic style to images.
+This is a basic image editing app. Post MVP goals are to use Machine learning to generate images with certain attributes and add an artistic style to images.
 # Project Goals
  
 ## Bronze
@@ -23,12 +23,12 @@ This is a basic Image editing app. Post MVP goals are to use Machine learning to
  
 ## Gold
 
-* Use GAN to add style/pattern to an image
 * Use GAN to generate images with a given attribute
+* Use GAN/CNN to add style/pattern to an image
 
 ## Platinum
 
-* Use GAN to generate image with multiple styles 
+* Use GAN/CNN to generate image with multiple styles 
 * Users can train their own model (i.e. create custom attributes)
 
 # Wireframe
