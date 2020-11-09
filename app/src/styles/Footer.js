@@ -6,5 +6,6 @@ export const StyledFooter = styled.footer`
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    background-color: grey;
+    background-color: #453F3C;
+    color: #FFFFFF;
 `
