@@ -18,7 +18,7 @@ class Image(models.Model):
         return self.title
 
     title = models.CharField(max_length=254)
-    path = models.ImageField(upload_to='image_db')
+    path = models.ImageField(upload_to='')
     description = models.CharField(max_length=254, blank=True)
     edited = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
