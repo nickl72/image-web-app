@@ -9,7 +9,7 @@ class User(models.Model):
 
     name = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
-    email = models.CharField(max_length=254)
+    email = models.EmailField()
     following = models.ManyToManyField("self", symmetrical = False)
 
 
