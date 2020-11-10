@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+# Need to add pass field
 class User(models.Model):
     def __str__(self):
         return self.username
@@ -9,6 +10,9 @@ class User(models.Model):
     name = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
     email = models.CharField(max_length=254)
+    following = models.ManyToManyField("self", symmetrical = False)
+    saved_images = models.ManyToManyField(Image)
+
 
 class Image(models.Model):
     def __str__(self):
@@ -20,6 +24,7 @@ class Image(models.Model):
     edited = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
     creator_id = models.ForeignKey(User, on_delete = models.CASCADE) # Consider changing on_delete method to avoid deleting image when a user is deleted
+    original_images = models.ManyToManyField("self", symmetrical = False)
 
 class Tag(models.Model):
     def __str__(self):
