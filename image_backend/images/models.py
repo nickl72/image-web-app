@@ -23,8 +23,8 @@ class Image(models.Model):
     edited = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
     originals = models.ManyToManyField("self", symmetrical = False)
-    creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'creator') # Consider changing on_delete method to avoid deleting image when a user is deleted
-    saved_by = models.ManyToManyField(User, related_name = 'saved_image')
+    creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'created_images') # Consider changing on_delete method to avoid deleting image when a user is deleted
+    saved_by = models.ManyToManyField(User, related_name = 'saved_images')
 
 class Tag(models.Model):
     def __str__(self):
