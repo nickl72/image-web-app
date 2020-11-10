@@ -22,9 +22,9 @@ class Image(models.Model):
     description = models.CharField(max_length=254)
     edited = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
-    creator_id = models.ForeignKey(User, on_delete = models.CASCADE) # Consider changing on_delete method to avoid deleting image when a user is deleted
-    original_images = models.ManyToManyField("self", symmetrical = False)
-    saved_by = models.ManyToManyField(User)
+    originals = models.ManyToManyField("self", symmetrical = False)
+    creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'creator') # Consider changing on_delete method to avoid deleting image when a user is deleted
+    saved_by = models.ManyToManyField(User, related_name = 'saved_image')
 
 class Tag(models.Model):
     def __str__(self):
@@ -37,5 +37,5 @@ class Comment(models.Model):
         return self.comment
 
     comment = models.CharField(max_length=254)
-    image_id = models.ForeignKey(Image, on_delete = models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+    image = models.ForeignKey(Image, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)

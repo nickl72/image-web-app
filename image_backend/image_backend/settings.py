@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'image_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'images',
+        'NAME': 'image_dev',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
