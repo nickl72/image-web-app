@@ -1,7 +1,9 @@
 import React from 'react';
 import { Edit } from '../styles/Edit';
+import axios from 'axios';
 
 const EditImage = () => {
+
     return (
         <Edit>
             <div>
