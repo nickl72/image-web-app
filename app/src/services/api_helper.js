@@ -9,3 +9,9 @@ export const registerUser = async (registerData) => {
     const resp = await api.post('/users/', registerData);
     return resp.data
 }
+
+export const getImage = async () => {
+    const resp = await api.get('/images/');
+    // console.log(resp)
+    return resp
+}

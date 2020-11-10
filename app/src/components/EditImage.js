@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import axios from 'axios';
+import { api, getImage } from '../services/api_helper';
 
 const EditImage = () => {
+    const [image, setImage] = useState(null)
 
+    if (!image) {
+        api.get('/images/').then(resp => {
+                console.log(resp.data[1].path)
+                setImage(resp.data[1].path)
+            })   
+        }
+    
+    console.log(image)
+    
     return (
         <Edit>
             <div>
@@ -33,7 +43,7 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                <img src='https://picsum.photos/1000/1000?random=22' alt='' />
+                {image && <img src={`${image}`} alt='' />}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>
