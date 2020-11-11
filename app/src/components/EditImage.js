@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
+import { getImageById, editImage } from '../services/api_helper';
 
 const EditImage = () => {
+    const [image, setImage] = useState(null)
+
+    if (!image) {
+        getImageById(7).then(resp => {
+            setImage(resp.path)
+        })
+    }
+        
     return (
         <Edit>
             <div>
@@ -23,7 +32,7 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#'>download image</a></p>
+                <p><a href='#' onClick={() => editImage(7)}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JEPG</option>
                     <option>ASCII</option>
@@ -31,7 +40,7 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                <img src='https://picsum.photos/1000/1000?random=22' alt='' />
+                {image && <img src={`${image}`} alt='' />}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>
