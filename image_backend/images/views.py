@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 # Create your views here.
 from .models import Image, User
@@ -27,3 +28,11 @@ class GetImageById(generics.ListAPIView):
         id = self.kwargs['id']
         return Image.objects.filter(id = id)
     serializer_class = ImageSerializer
+
+def edit(request, id, actions, changes):
+    print(actions.split(','))
+    print(changes.split(','))
+    
+    image = Image.objects.filter(id=id)[0]
+    print(image.path)
+    return redirect(f'/api/images/{id}/')
