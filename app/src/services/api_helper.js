@@ -16,7 +16,12 @@ export const getImageById = async (id) => {
 }
 
 export const editImage = async (id, edits) => {
-    const actions = 'blur,red'
-    const changes = 'fsa'
-    await api.put(`/edit/image/${id}/${actions}/${changes}/`).then(resp => console.log(resp))
+    let actions = ''
+    let changes = ''
+    // Creates comma delimited strings with each method
+    for (const key in edits) {
+        actions += key + ','
+        changes += edits[key] +','
+    }
+    await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
 }

@@ -20,7 +20,6 @@ const EditImage = () => {
     const handleChange = (e) => {
         e.preventDefault();
         const update = Object.assign({}, edits)
-        console.log(update)
         update[e.target.name] = e.target.value
         setEdits(update)
     }
