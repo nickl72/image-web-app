@@ -6,7 +6,7 @@ const EditImage = () => {
     const [image, setImage] = useState(null)
 
     if (!image) {
-        getImageById(8).then(resp => {
+        getImageById(9).then(resp => {
             setImage(resp.path)
         })
     }
@@ -32,7 +32,7 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={() => editImage(8)}>download image</a></p>
+                <p><a href='#' onClick={() => editImage(9)}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JEPG</option>
                     <option>ASCII</option>
