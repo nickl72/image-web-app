@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 from .models import Image, User
@@ -29,10 +31,15 @@ class GetImageById(generics.ListAPIView):
         return Image.objects.filter(id = id)
     serializer_class = ImageSerializer
 
+@csrf_exempt 
 def edit(request, id, actions, changes):
-    print(actions.split(','))
-    print(changes.split(','))
-    
-    image = Image.objects.filter(id=id)[0]
-    print(image.path)
-    return redirect(f'/api/images/{id}/')
+    if request.method == 'PUT':
+
+        print(actions.split(','))
+        print(changes.split(','))
+
+        image = Image.objects.filter(id=id)[0]
+        print(image.path)
+        return HttpResponse('it worked')
+    else: 
+        return HttpResponse('error')

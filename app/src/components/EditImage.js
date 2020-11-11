@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById } from '../services/api_helper';
+import { getImageById, editImage } from '../services/api_helper';
 
 const EditImage = () => {
     const [image, setImage] = useState(null)
@@ -32,7 +32,7 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#'>download image</a></p>
+                <p><a href='#' onClick={() => editImage(7)}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JEPG</option>
                     <option>ASCII</option>

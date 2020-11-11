@@ -14,3 +14,8 @@ export const getImageById = async (id) => {
     .then(resp =>{return resp.data[0]});
     return resp   
 }
+
+export const editImage = async (id) => {
+    const actions = 'blur,red'
+    await api.put(`/edit/image/${id}/${actions}/stuff/`).then(resp => console.log(resp))
+}
