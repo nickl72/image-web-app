@@ -42,3 +42,4 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
 # Technologies Used
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
+* [Django](https://www.djangoproject.com/)
