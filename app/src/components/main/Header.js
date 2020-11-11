@@ -10,7 +10,7 @@ const Header = () => {
     }
     return(
         <StyledHeader>
-            <h1>Images</h1>
+            <h1>Flow Images</h1>
             <input type='text' placeholder='Search' />
             <Anchor href='#' onClick={callpython}>Log In</Anchor>
         </StyledHeader>
