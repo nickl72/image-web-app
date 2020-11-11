@@ -6,9 +6,9 @@ export const Edit = styled.div`
 
     .image {
         flex-grow: 1;
-        /* img {
-            width: 100%;
-            height: 100%;
-        } */
+        img {
+            min-width: 100%;
+            min-height: 100%;
+        }
     }
 `

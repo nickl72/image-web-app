@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { api, getImage } from '../services/api_helper';
+import { getImageById } from '../services/api_helper';
 
 const EditImage = () => {
     const [image, setImage] = useState(null)
 
     if (!image) {
-        api.get('/images/').then(resp => {
-                console.log(resp.data[1].path)
-                setImage(resp.data[1].path)
-            })   
-        }
-    
-    console.log(image)
-    
+        getImageById(7).then(resp => {
+            setImage(resp.path)
+        })
+    }
+        
     return (
         <Edit>
             <div>
