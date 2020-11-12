@@ -42,7 +42,7 @@ const EditImage = () => {
 
                 <h3>Insert Image</h3>
                 <p>upload: </p>
-                <form onSubmit={uploadImage}>
+                <form onSubmit={(e) => {uploadImage(e,1)}}>
                     {/* <input type='text' name='title' /> */}
                     <input type='file' name='path' />
                     {/* <select name='creator'><option value='1'>1</option></select> */}
