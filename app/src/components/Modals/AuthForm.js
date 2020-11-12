@@ -24,6 +24,8 @@ const AuthForm = (props) => {
                 setErrorMessage('Incorrect username or password')
             } else if (resp.status >= 400) {
                 setErrorMessage('An unknown error occured, please try again.')
+            } else {
+                props.toggleAuthForm()
             }
         } else {
             let data = {
@@ -33,7 +35,14 @@ const AuthForm = (props) => {
                 first_name: e.target.first_name.value,
                 last_name: e.target.last_name.value
             }
-            registerUser(data)
+            const resp = await registerUser(data)
+            if (resp.status === 400) {
+                setErrorMessage('Username is unavailable')
+            } else if (resp.status >= 400) {
+                setErrorMessage('An unknown error occured, please try again.')
+            } else {
+                props.toggleAuthForm()
+            }
         }
         
     }

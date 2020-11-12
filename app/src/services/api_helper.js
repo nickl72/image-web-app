@@ -7,10 +7,12 @@ export const api = axios.create({
 
 export const registerUser = async (registerData) => {
     console.log(registerData)
-    const resp = await api.post('/users/', registerData);
-    localStorage.setItem('authToken', resp.data.access);
+    const resp = await api.post('/users/', registerData).catch((err) => (err.response));
+    if (resp.status < 400 ) {
+        localStorage.setItem('authToken', resp.data.access);
+    }
     // api.defaults.headers.common.authorization = `Bearer ${resp.data.access}`;
-    return resp.data
+    return resp
 }
 
 export const loginUser = async (loginData) => {
