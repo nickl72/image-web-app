@@ -12,7 +12,7 @@ const EditImage = () => {
         blue: 0
     })
     if (!image) {
-        getImageById(1).then(resp => {
+        getImageById(7).then(resp => {
             setImage(resp.path)
         })
     }

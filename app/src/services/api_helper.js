@@ -14,9 +14,11 @@ export const registerUser = async (registerData) => {
 }
 
 export const loginUser = async (loginData) => {
-    const resp = await api.post('/token/', loginData)
-    console.log(resp);
-    localStorage.setItem('authToken', resp.data.access);
+    const resp = await api.post('/token/', loginData).catch((err) => (err.response));
+    if (resp.status < 400 ) {
+        localStorage.setItem('authToken', resp.data.access);
+    }
+    return resp;
 }
 
 export const getImageById = async (id) => {
