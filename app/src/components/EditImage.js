@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage } from '../services/api_helper';
+import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
 
 const EditImage = () => {
     const [image, setImage] = useState(null)
@@ -60,7 +60,7 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' />}
+                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,22)}}/>}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>

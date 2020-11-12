@@ -1,4 +1,5 @@
 import axios from 'axios';
+const fileDownload = require('js-file-download');
 
 export const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api'
@@ -43,4 +44,21 @@ export const uploadImage =  (e, creator, title='none') => {
     }).catch(err => {
         console.log(err)
     })
+}
+
+
+export const downloadImage = (e, id) => {
+    e.preventDefault()
+    api.get(`/download/${id}`,{
+        responseType: 'blob'
+    }).then(resp => {
+        // I hate this code so much, but it works
+        const url = window.URL.createObjectURL(new Blob([resp.data]))
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.jpeg');
+        document.body.appendChild(link)
+        link.click();
+        link.remove();
+    }).catch(err => {console.log(err)})
 }
