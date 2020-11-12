@@ -1,4 +1,5 @@
 import axios from 'axios';
+const fileDownload = require('js-file-download');
 
 export const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api'
@@ -7,6 +8,10 @@ export const api = axios.create({
 export const registerUser = async (registerData) => {
     const resp = await api.post('/users/', registerData);
     return resp.data
+}
+
+export const loginUser = async (loginData) => {
+    await api.get()
 }
 
 export const getImageById = async (id) => {
@@ -26,16 +31,13 @@ export const editImage = async (id, edits) => {
     await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
 }
 
-export const uploadImage =  (e, creator) => {
+export const uploadImage =  (e, creatorId, title='none') => {
     e.preventDefault()
     const payload = new FormData()
     payload.append('path', e.target[0].files[0])
-    payload.append('title', 'new this blows')
-    payload.append('creator', 1)
-    api({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/images/',
-        data: payload,
+    payload.append('title', title)
+    payload.append('creator', creatorId)
+    api.post('/images/', payload, {
         headers: {'Content-Type': 'multipart/form-data' }
     }).then(resp =>{
         console.log(resp)
@@ -44,3 +46,20 @@ export const uploadImage =  (e, creator) => {
     })
 }
 
+
+export const downloadImage = (e, id, fileName) => {
+    e.preventDefault()
+    api.get(`/download/${id}`,{
+        responseType: 'blob'
+    }).then(resp => {
+        // I hate this code so much, but it works
+        console.log(resp)
+        const url = window.URL.createObjectURL(new Blob([resp.data]))
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link)
+        link.click();
+        link.remove();
+    }).catch(err => {console.log(err)})
+}

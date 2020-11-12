@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage } from '../services/api_helper';
+import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
 
 const EditImage = () => {
     const [image, setImage] = useState(null)
@@ -28,24 +28,22 @@ const EditImage = () => {
         <Edit>
             <div>
                 <h2>Edit</h2>
-                <h3>Brightness</h3>
+                <h3>Brightness: {edits.brightness}</h3>
                 <input type='range' name='brightness' min='0' max='2' step='.01' value={edits.brightness} onChange={handleChange}/>
-                <h3>Blur</h3>
-                <input type='range' name='blur' min='0' max='5' onChange={handleChange}/>
+                <h3>Blur: {edits.blur}</h3>
+                <input type='range' name='blur' min='0' max='5' value={edits.blur} onChange={handleChange}/>
                 <h3>Color</h3>
                 <h4>Red: {edits.red}</h4>
-                <input type='range' name='red' min='-255' max='255' onChange={handleChange}/>
+                <input type='range' name='red' min='-255' max='255' value={edits.red} onChange={handleChange}/>
                 <h4>Green: {edits.green}</h4>
-                <input type='range' name='green' min='-255' max='255' onChange={handleChange}/>
+                <input type='range' name='green' min='-255' max='255' value={edits.green} onChange={handleChange}/>
                 <h4>Blue: {edits.blue}</h4>
-                <input type='range' name='blue' min='-255' max='255' onChange={handleChange}/>
+                <input type='range' name='blue' min='-255' max='255' value={edits.blue} onChange={handleChange}/>
 
                 <h3>Insert Image</h3>
                 <p>upload: </p>
                 <form onSubmit={(e) => {uploadImage(e,1)}}>
-                    {/* <input type='text' name='title' /> */}
                     <input type='file' name='path' />
-                    {/* <select name='creator'><option value='1'>1</option></select> */}
                     <input type='submit' value = 'Upload' />
                 </form>
                 <p>select from library</p>
@@ -60,7 +58,7 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' />}
+                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,22, 'filename.jpeg')}}/>}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>
