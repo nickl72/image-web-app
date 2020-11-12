@@ -12,7 +12,7 @@ const EditImage = () => {
         blue: 0
     })
     if (!image) {
-        getImageById(22).then(resp => {
+        getImageById(1).then(resp => {
             setImage(resp.path)
         })
     }
@@ -50,7 +50,7 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={() => editImage(22, edits)}>download image</a></p>
+                <p><a href='#' onClick={() => editImage(1, edits)}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JPEG</option>
                     <option>ASCII</option>
@@ -58,7 +58,7 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,22, 'filename.jpeg')}}/>}
+                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,1, 'filename.jpeg')}}/>}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>

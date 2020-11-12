@@ -6,12 +6,17 @@ export const api = axios.create({
 })
 
 export const registerUser = async (registerData) => {
+    console.log(registerData)
     const resp = await api.post('/users/', registerData);
+    localStorage.setItem('authToken', resp.data.access);
+    // api.defaults.headers.common.authorization = `Bearer ${resp.data.access}`;
     return resp.data
 }
 
 export const loginUser = async (loginData) => {
-    await api.get()
+    const resp = await api.post('/token/', loginData)
+    console.log(resp);
+    localStorage.setItem('authToken', resp.data.access);
 }
 
 export const getImageById = async (id) => {
@@ -33,12 +38,17 @@ export const editImage = async (id, edits) => {
 
 export const uploadImage =  (e, creatorId, title='none') => {
     e.preventDefault()
+    const token = localStorage.getItem('authToken');
+    console.log(token)
     const payload = new FormData()
     payload.append('path', e.target[0].files[0])
     payload.append('title', title)
     payload.append('creator', creatorId)
     api.post('/images/', payload, {
-        headers: {'Content-Type': 'multipart/form-data' }
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+    }
     }).then(resp =>{
         console.log(resp)
     }).catch(err => {
