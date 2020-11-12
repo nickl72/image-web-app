@@ -9,6 +9,10 @@ export const registerUser = async (registerData) => {
     return resp.data
 }
 
+export const loginUser = async (loginData) => {
+    await api.get()
+}
+
 export const getImageById = async (id) => {
     const resp = await api.get(`/images/${id}`)
     .then(resp =>{return resp.data[0]});
@@ -26,16 +30,13 @@ export const editImage = async (id, edits) => {
     await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
 }
 
-export const uploadImage =  (e, creator) => {
+export const uploadImage =  (e, creator, title='none') => {
     e.preventDefault()
     const payload = new FormData()
     payload.append('path', e.target[0].files[0])
-    payload.append('title', 'new this blows')
+    payload.append('title', 'title')
     payload.append('creator', 1)
-    api({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/images/',
-        data: payload,
+    api.post('/images/', payload, {
         headers: {'Content-Type': 'multipart/form-data' }
     }).then(resp =>{
         console.log(resp)
@@ -43,4 +44,3 @@ export const uploadImage =  (e, creator) => {
         console.log(err)
     })
 }
-
