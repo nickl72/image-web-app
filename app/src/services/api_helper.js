@@ -1,4 +1,7 @@
 import axios from 'axios';
+// redux
+// import store from '../app/store';
+
 
 export const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api'

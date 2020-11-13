@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/features/userSlice'
+import { selectUser } from '../../features/userSlice'
 
 import EditImage from '../EditImage';
 import Home from '../Home';

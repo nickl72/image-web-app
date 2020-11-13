@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
 import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveImage } from '../features/activeImageSlice';
 
 const EditImage = () => {
+    const dispatch = useDispatch();
     const [image, setImage] = useState(null)
     const [edits, setEdits] = useState({
         brightness: 1,
@@ -11,9 +14,12 @@ const EditImage = () => {
         green: 0,
         blue: 0
     })
+
     if (!image) {
         getImageById(7).then(resp => {
             setImage(resp.path)
+            console.log(resp)
+            dispatch(setActiveImage(resp))
         })
     }
         
