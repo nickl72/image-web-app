@@ -41,7 +41,7 @@ const EditImage = () => {
                 downloadImage(activeImage.id, 'newfile.jpeg');
                 break;
             case 'edit':
-                editImage();
+                editImage(activeImage.id, edits);
                 break;
             default:
                 return
@@ -79,7 +79,7 @@ const EditImage = () => {
                     <option>JPEG</option>
                     <option>ASCII</option>
                 </select>
-                <a onClick={() => editImage(1, edits)} >Edit images</a>
+                <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
 
             </div>
             <div className='image'>
