@@ -4,23 +4,30 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api'
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
     const resp = await api.post('/users/', registerData).catch((err) => (err.response));
+    let userId=null
     if (resp.status < 400 ) {
         localStorage.setItem('authToken', resp.data.access);
+        const user = await api.get(`/users/${registerData.username}`);
+        userId = user.data[0].id
     }
-    return resp
+    return [resp, userId]
 }
 
 export const loginUser = async (loginData) => {
     const resp = await api.post('/token/', loginData).catch((err) => (err.response));
+    let userId=null
     if (resp.status < 400 ) {
         localStorage.setItem('authToken', resp.data.access);
+        const user = await api.get(`/users/${loginData.username}`);
+        userId = user.data[0].id
     }
-    return resp;
+    return [resp, userId];
 }
 
 export const getImageById = async (id) => {
@@ -42,10 +49,9 @@ export const editImage = async (id, edits) => {
 }
 
 export const uploadImage =  (e, creatorId, title='none') => {
-    e.preventDefault()
     const token = localStorage.getItem('authToken');
-    console.log(token)
     const payload = new FormData()
+    console.log(e.target[0].files[0])
     payload.append('path', e.target[0].files[0])
     payload.append('title', title)
     payload.append('creator', creatorId)
@@ -76,4 +82,18 @@ export const downloadImage = (id, fileName) => {
         link.click();
         link.remove();
     }).catch(err => {console.log(err)})
+}
+
+export const downloadAscii = (id, html = 'False', fileName) => {
+    api.get(`ascii/${id}/${html}/`).then(resp => {
+        console.log(resp)
+        const url = window.URL.createObjectURL(new Blob([resp.data]))
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link)
+        link.click();
+        link.remove();
+    }).catch(err => {console.log(err)})
+
 }

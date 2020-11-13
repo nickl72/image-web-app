@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import { FullScreenModal } from '../../styles/GlobalComponents';
 import { registerUser, loginUser } from '../../services/api_helper';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../features/userSlice';
 
 const AuthForm = (props) => {
+    const dispatch = useDispatch();
     const [login, setLogin] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
 
@@ -19,12 +22,13 @@ const AuthForm = (props) => {
                 username: e.target.username.value,
                 password: e.target.password.value
             }
-            const resp = await loginUser(data)
+            const [resp, userId] = await loginUser(data)
             if (resp.status === 401 || resp.status === 400) {
                 setErrorMessage('Incorrect username or password')
             } else if (resp.status >= 400) {
                 setErrorMessage('An unknown error occured, please try again.')
             } else {
+                dispatch(loginSuccess({username: data.username, id: userId}))
                 props.toggleAuthForm()
             }
         } else {
@@ -35,12 +39,13 @@ const AuthForm = (props) => {
                 first_name: e.target.first_name.value,
                 last_name: e.target.last_name.value
             }
-            const resp = await registerUser(data)
+            const [resp, userId] = await registerUser(data)
             if (resp.status === 400) {
                 setErrorMessage('Username is unavailable')
             } else if (resp.status >= 400) {
                 setErrorMessage('An unknown error occured, please try again.')
             } else {
+                dispatch(loginSuccess({username: data.username, id: userId}))
                 props.toggleAuthForm()
             }
         }

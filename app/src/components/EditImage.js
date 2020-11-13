@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
+import { getImageById, editImage, uploadImage, downloadImage, downloadAscii } from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveImage, selectActiveImage } from '../features/activeImageSlice';
+import { selectUser } from '../features/userSlice';
 
 const EditImage = () => {
     const dispatch = useDispatch();
-    const activeImage = useSelector(selectActiveImage)
+    const activeImage = useSelector(selectActiveImage);
+    const user = useSelector(selectUser);
 
     const [image, setImage] = useState(null)
     const [edits, setEdits] = useState({
@@ -18,7 +20,7 @@ const EditImage = () => {
     })
 
     if (!image) {
-        getImageById(7).then(resp => {
+        getImageById(20).then(resp => {
             setImage(resp.path)
             dispatch(setActiveImage(resp))
         })
@@ -31,17 +33,25 @@ const EditImage = () => {
         setEdits(update)
     }
 
-    const handleApiCall = (e, api) =>{
+    const handleApiCall = async (e, api) =>{
         e.preventDefault();
         switch(api) {
             case 'upload':
-                uploadImage(activeImage.id);
+                uploadImage(e, 1);
                 break;
-            case 'download': 
-                downloadImage(activeImage.id, 'newfile.jpeg');
+            case 'download':
+                const filetype = e.target.filetype.value
+                if (filetype === 'jpg') {
+                    downloadImage(activeImage.id, 'newfile.jpeg');
+                } else {
+                    downloadAscii(activeImage.id, (filetype === 'html' ? 'True' : 'False'), `newfile.${filetype}`)
+                }
                 break;
             case 'edit':
-                editImage(activeImage.id, edits);
+                const reload = image
+                setImage('none')
+                const resp = await editImage(activeImage.id, edits);
+                setImage(reload)
                 break;
             default:
                 return
@@ -74,11 +84,16 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={(e) => {handleApiCall(e, 'download')}}>download image</a></p>
-                <p>Download as: </p><select>
-                    <option>JPEG</option>
-                    <option>ASCII</option>
-                </select>
+                
+                    <form href='#' onSubmit={(e) => {handleApiCall(e, 'download')}}>
+                        <input type='submit'value='Download Image' />
+                        <p>Download as: </p>
+                        <select name='filetype'>
+                            <option value='jpg'>JPEG</option>
+                            <option value='txt'>ASCII.txt</option>
+                            <option value='html'>ASCII.html</option>
+                        </select>
+                </form>
                 <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
 
             </div>
