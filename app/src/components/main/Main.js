@@ -10,7 +10,7 @@ const Main = () => {
     const user = useSelector(selectUser)
     return (
         <main>
-            { user && <Home/>}
+            { !user && <Home/>}
             { !user && <EditImage />}
         </main>
     )

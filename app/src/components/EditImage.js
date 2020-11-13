@@ -24,6 +24,12 @@ const EditImage = () => {
         setEdits(update)
     }
 
+    const handleApiCall = (e, api) =>{
+        // if (api === 'upload') {
+        //     uploadImage(image_id)
+        // }
+    }
+
     return (
         <Edit>
             <div>
@@ -50,15 +56,16 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={() => editImage(1, edits)}>download image</a></p>
+                <p><a href='#' onClick={(e) => {downloadImage(e,1, 'filename.jpeg')}}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JPEG</option>
                     <option>ASCII</option>
                 </select>
+                <a onClick={() => editImage(1, edits)} >Edit images</a>
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,1, 'filename.jpeg')}}/>}
+                {image && <img src={`${image}`} alt='' onClick={(e) => {}}/>}
                 <p>-<input type='range' />+</p>
             </div>
         </Edit>

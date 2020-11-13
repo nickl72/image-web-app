@@ -1,5 +1,4 @@
 import axios from 'axios';
-const fileDownload = require('js-file-download');
 
 export const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api'
@@ -10,7 +9,6 @@ export const registerUser = async (registerData) => {
     if (resp.status < 400 ) {
         localStorage.setItem('authToken', resp.data.access);
     }
-    // api.defaults.headers.common.authorization = `Bearer ${resp.data.access}`;
     return resp
 }
 
@@ -36,7 +34,8 @@ export const editImage = async (id, edits) => {
         actions += key + ','
         changes += edits[key] +','
     }
-    await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
+    const resp = await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
+    return resp
 }
 
 export const uploadImage =  (e, creatorId, title='none') => {
