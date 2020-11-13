@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
 import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveImage } from '../features/activeImageSlice';
+import { setActiveImage, selectActiveImage } from '../features/activeImageSlice';
 
 const EditImage = () => {
     const dispatch = useDispatch();
+    const activeImage = useSelector(selectActiveImage)
+
     const [image, setImage] = useState(null)
     const [edits, setEdits] = useState({
         brightness: 1,
@@ -18,7 +20,6 @@ const EditImage = () => {
     if (!image) {
         getImageById(7).then(resp => {
             setImage(resp.path)
-            console.log(resp)
             dispatch(setActiveImage(resp))
         })
     }
@@ -31,9 +32,20 @@ const EditImage = () => {
     }
 
     const handleApiCall = (e, api) =>{
-        // if (api === 'upload') {
-        //     uploadImage(image_id)
-        // }
+        e.preventDefault();
+        switch(api) {
+            case 'upload':
+                uploadImage(activeImage.id);
+                break;
+            case 'download': 
+                downloadImage(activeImage.id, 'newfile.jpeg');
+                break;
+            case 'edit':
+                editImage();
+                break;
+            default:
+                return
+        }
     }
 
     return (
@@ -54,7 +66,7 @@ const EditImage = () => {
 
                 <h3>Insert Image</h3>
                 <p>upload: </p>
-                <form onSubmit={(e) => {uploadImage(e,1)}}>
+                <form onSubmit={(e) => {handleApiCall(e,'upload')}}>
                     <input type='file' name='path' />
                     <input type='submit' value = 'Upload' />
                 </form>
@@ -62,7 +74,7 @@ const EditImage = () => {
                 <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={(e) => {downloadImage(e,1, 'filename.jpeg')}}>download image</a></p>
+                <p><a href='#' onClick={(e) => {handleApiCall(e, 'download')}}>download image</a></p>
                 <p>Download as: </p><select>
                     <option>JPEG</option>
                     <option>ASCII</option>

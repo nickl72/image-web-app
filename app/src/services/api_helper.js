@@ -62,8 +62,7 @@ export const uploadImage =  (e, creatorId, title='none') => {
 }
 
 
-export const downloadImage = (e, id, fileName) => {
-    e.preventDefault()
+export const downloadImage = (id, fileName) => {
     api.get(`/download/${id}`,{
         responseType: 'blob'
     }).then(resp => {
