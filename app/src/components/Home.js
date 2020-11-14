@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image} from '../styles/Home'
+import { randomImages} from '../services/api_helper';
 
 const Home = () => {
-    const images = []
-
-    for (let i = 0; i < 8; i++) {
-        const url = `https://picsum.photos/200/300?random=${Math.floor(Math.random()*100)+1}`
-        images.push(url)
+    const [images, setImages] = useState(null)
+    const callApi = async () => {
+        const images = await randomImages()
+        setImages(images)
+    }
+    if (!images) {
+        callApi()
+    }
+    const handleclick = (e) => {
+        e.preventDefault()
     }
 
     return (
         <>
-            { images.map((url, key) => <Image src={url} key={key} alt='' />)}
+            { images && images.map((img, key) => <a onClick={handleclick}><Image src={img.path} key={key} alt='' /></a>)}
         </>
     )
 }

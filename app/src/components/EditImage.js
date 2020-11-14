@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage, downloadImage } from '../services/api_helper';
+import { getImageById, editImage, uploadImage, downloadImage, downloadAscii, getImageSize } from '../services/api_helper';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveImage, selectActiveImage } from '../features/activeImageSlice';
+import { selectUser } from '../features/userSlice';
 
 const EditImage = () => {
+    const dispatch = useDispatch();
+    const activeImage = useSelector(selectActiveImage);
+    const user = useSelector(selectUser);
+
     const [image, setImage] = useState(null)
+    const [imageSize, setImageSize] = useState({width: null, height: null})
     const [edits, setEdits] = useState({
         brightness: 1,
         blur: 0,
@@ -11,9 +19,17 @@ const EditImage = () => {
         green: 0,
         blue: 0
     })
+
     if (!image) {
-        getImageById(22).then(resp => {
-            setImage(resp.path)
+        const image_id=1
+        getImageById(image_id).then(resp => {
+            if (resp){
+                setImage(resp.path)
+            }
+            getImageSize(image_id).then(size => {
+                setImageSize(size)
+                dispatch(setActiveImage(resp))
+            })
         })
     }
         
@@ -22,6 +38,31 @@ const EditImage = () => {
         const update = Object.assign({}, edits)
         update[e.target.name] = e.target.value
         setEdits(update)
+    }
+
+    const handleApiCall = async (e, api) =>{
+        e.preventDefault();
+        switch(api) {
+            case 'upload':
+                uploadImage(e, 1);
+                break;
+            case 'download':
+                const filetype = e.target.filetype.value
+                if (filetype === 'jpg') {
+                    downloadImage(activeImage.id, 'newfile.jpeg');
+                } else {
+                    downloadAscii(activeImage.id, (filetype === 'html' ? 'True' : 'False'), `newfile.${filetype}`)
+                }
+                break;
+            case 'edit':
+                const reload = image
+                setImage('none')
+                const resp = await editImage(activeImage.id, edits);
+                setImage(reload)
+                break;
+            default:
+                return
+        }
     }
 
     return (
@@ -42,24 +83,28 @@ const EditImage = () => {
 
                 <h3>Insert Image</h3>
                 <p>upload: </p>
-                <form onSubmit={(e) => {uploadImage(e,1)}}>
+                <form onSubmit={(e) => {handleApiCall(e,'upload')}}>
                     <input type='file' name='path' />
                     <input type='submit' value = 'Upload' />
                 </form>
-                <p>select from library</p>
-                <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
-                <p><a href='#' onClick={() => editImage(22, edits)}>download image</a></p>
-                <p>Download as: </p><select>
-                    <option>JPEG</option>
-                    <option>ASCII</option>
-                </select>
+                
+                    <form href='#' onSubmit={(e) => {handleApiCall(e, 'download')}}>
+                        <input type='submit'value='Download Image' />
+                        <p>Download as: </p>
+                        <select name='filetype'>
+                            <option value='jpg'>JPEG</option>
+                            <option value='txt'>ASCII.txt</option>
+                            <option value='html'>ASCII.html</option>
+                        </select>
+                </form>
+                <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' onClick={(e) => {downloadImage(e,22, 'filename.jpeg')}}/>}
-                <p>-<input type='range' />+</p>
+                {image && <img src={`${image}`} alt='' onClick={(e) => {}}/>}
+                {/* <p>-<input type='range' />+</p> */}
             </div>
         </Edit>
     )

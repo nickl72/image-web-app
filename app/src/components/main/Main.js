@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/features/userSlice'
+import { selectUser } from '../../features/userSlice'
+import { Route, Switch } from 'react-router';
 
 import EditImage from '../EditImage';
 import Home from '../Home';
@@ -10,8 +11,10 @@ const Main = () => {
     const user = useSelector(selectUser)
     return (
         <main>
-            { user && <Home/>}
-            { !user && <EditImage />}
+            <Switch >
+                <Route path='/edit' component={EditImage} />
+                <Route path='/' component={Home} />
+            </Switch>
         </main>
     )
 }

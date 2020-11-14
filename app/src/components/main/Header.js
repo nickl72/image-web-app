@@ -1,18 +1,24 @@
-import React from 'react'
-import axios from 'axios'
+import React, {useState} from 'react';
+
+import AuthForm from '../Modals/AuthForm';
 // styles
 import { StyledHeader } from '../../styles/Header'
 import { Anchor } from '../../styles/GlobalComponents'
 
 const Header = () => {
-    const callpython = () => {
-        axios.post('/python.py')
+
+    const [Auth, setAuth] = useState(false);
+    
+    const toggleAuthForm = () => {
+        setAuth(!Auth)
     }
+    
     return(
         <StyledHeader>
             <h1>Flow Images</h1>
             <input type='text' placeholder='Search' />
-            <Anchor href='#' onClick={callpython}>Log In</Anchor>
+            <Anchor onClick={toggleAuthForm}>Log In</Anchor>
+            { Auth && <AuthForm toggleAuthForm={toggleAuthForm}/>}
         </StyledHeader>
     )
 }

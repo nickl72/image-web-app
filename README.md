@@ -8,7 +8,6 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
    * adjust colors
    * crop images
    * blur images
-   * overlay images 
  * Users can log in to view and edit their uploaded images
    * User Auth
  * Image editing capabilities handled on back end with Python (plan to use Pillow Package)
