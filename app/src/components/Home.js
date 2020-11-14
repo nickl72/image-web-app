@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image} from '../styles/Home'
+import { randomImages} from '../services/api_helper';
 
 const Home = () => {
-    const images = []
-
-    for (let i = 0; i < 8; i++) {
-        const url = `https://picsum.photos/200/300?random=${Math.floor(Math.random()*100)+1}`
-        images.push(url)
+    const [images, setImages] = useState(null)
+    const callApi = async () => {
+        const images = await randomImages()
+        setImages(images)
+    }
+    if (!images) {
+        console.log('false')
+        callApi()
+    }
+    const handleclick = (e) => {
+        e.preventDefault()
+        // downloadExternal()
     }
 
     return (
         <>
-            { images.map((url, key) => <Image src={url} key={key} alt='' />)}
+            {/* <button onClick={handleclick}>download lorem picsum</button> */}
+            {/* <a href='https://unsplash.com/photos/yC-Yzbqy7PY/download?force=true' download>download lorem</a> */}
+            { images && images.map((img, key) => <a onClick={handleclick}><Image src={img.path} key={key} alt='' /></a>)}
         </>
     )
 }

@@ -20,7 +20,7 @@ const EditImage = () => {
     })
 
     if (!image) {
-        getImageById(20).then(resp => {
+        getImageById(24).then(resp => {
             setImage(resp.path)
             dispatch(setActiveImage(resp))
         })

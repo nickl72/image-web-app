@@ -4,8 +4,8 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    // baseURL: 'http://127.0.0.1:8000/api'
-    baseURL: 'https://flow-images.herokuapp.com/api'
+    baseURL: 'http://127.0.0.1:8000/api'
+    // baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -33,6 +33,7 @@ export const loginUser = async (loginData) => {
 export const getImageById = async (id) => {
     const resp = await api.get(`/images/${id}`)
     .then(resp =>{return resp.data[0]});
+    console.log(resp)
     return resp   
 }
 
@@ -96,4 +97,18 @@ export const downloadAscii = (id, html = 'False', fileName) => {
         link.remove();
     }).catch(err => {console.log(err)})
 
+}
+
+// export const downloadExternal = () => {
+//     axios.get('https://unsplash.com/photos/yC-Yzbqy7PY/download?force=true').then(resp => {console.log(resp)})
+// }
+
+// export const cropImage = () => {
+//     axios.get('/crop/')
+// }
+
+export const randomImages = async () => {
+    const resp = await api.get('/images/random/8/');
+    console.log(resp)
+    return resp.data
 }
