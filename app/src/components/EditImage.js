@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage, downloadImage, downloadAscii } from '../services/api_helper';
+import { getImageById, editImage, uploadImage, downloadImage, downloadAscii, getImageSize } from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveImage, selectActiveImage } from '../features/activeImageSlice';
 import { selectUser } from '../features/userSlice';
@@ -11,6 +11,7 @@ const EditImage = () => {
     const user = useSelector(selectUser);
 
     const [image, setImage] = useState(null)
+    const [imageSize, setImageSize] = useState({width: null, height: null})
     const [edits, setEdits] = useState({
         brightness: 1,
         blur: 0,
@@ -20,9 +21,15 @@ const EditImage = () => {
     })
 
     if (!image) {
-        getImageById(24).then(resp => {
-            setImage(resp.path)
-            dispatch(setActiveImage(resp))
+        const image_id=1
+        getImageById(image_id).then(resp => {
+            if (resp){
+                setImage(resp.path)
+            }
+            getImageSize(image_id).then(size => {
+                setImageSize(size)
+                dispatch(setActiveImage(resp))
+            })
         })
     }
         
@@ -80,8 +87,6 @@ const EditImage = () => {
                     <input type='file' name='path' />
                     <input type='submit' value = 'Upload' />
                 </form>
-                <p>select from library</p>
-                <input type='text' />
                 <p><a href='#'>Crop</a></p>
 
                 
@@ -99,7 +104,7 @@ const EditImage = () => {
             </div>
             <div className='image'>
                 {image && <img src={`${image}`} alt='' onClick={(e) => {}}/>}
-                <p>-<input type='range' />+</p>
+                {/* <p>-<input type='range' />+</p> */}
             </div>
         </Edit>
     )

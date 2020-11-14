@@ -9,18 +9,14 @@ const Home = () => {
         setImages(images)
     }
     if (!images) {
-        console.log('false')
         callApi()
     }
     const handleclick = (e) => {
         e.preventDefault()
-        // downloadExternal()
     }
 
     return (
         <>
-            {/* <button onClick={handleclick}>download lorem picsum</button> */}
-            {/* <a href='https://unsplash.com/photos/yC-Yzbqy7PY/download?force=true' download>download lorem</a> */}
             { images && images.map((img, key) => <a onClick={handleclick}><Image src={img.path} key={key} alt='' /></a>)}
         </>
     )

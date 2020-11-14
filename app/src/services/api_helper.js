@@ -4,8 +4,8 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'https://flow-images.herokuapp.com/api'
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -33,7 +33,6 @@ export const loginUser = async (loginData) => {
 export const getImageById = async (id) => {
     const resp = await api.get(`/images/${id}`)
     .then(resp =>{return resp.data[0]});
-    console.log(resp)
     return resp   
 }
 
@@ -87,7 +86,6 @@ export const downloadImage = (id, fileName) => {
 
 export const downloadAscii = (id, html = 'False', fileName) => {
     api.get(`ascii/${id}/${html}/`).then(resp => {
-        console.log(resp)
         const url = window.URL.createObjectURL(new Blob([resp.data]))
         const link = document.createElement('a');
         link.href = url;
@@ -109,6 +107,10 @@ export const downloadAscii = (id, html = 'False', fileName) => {
 
 export const randomImages = async () => {
     const resp = await api.get('/images/random/8/');
-    console.log(resp)
+    return resp.data
+}
+
+export const getImageSize = async (id) => {
+    const resp = await api.get(`images/size/${id}/`)
     return resp.data
 }
