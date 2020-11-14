@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Image} from '../styles/Home'
 import { randomImages} from '../services/api_helper';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { setActiveImage } from '../features/activeImageSlice';
 import { useDispatch } from 'react-redux';
 

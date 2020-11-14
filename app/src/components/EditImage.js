@@ -8,9 +8,10 @@ import { selectUser } from '../features/userSlice';
 const EditImage = () => {
     const dispatch = useDispatch();
     const activeImage = useSelector(selectActiveImage);
+    console.log(activeImage);
     const user = useSelector(selectUser);
 
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState(activeImage.path)
     const [imageSize, setImageSize] = useState({width: null, height: null})
     const [edits, setEdits] = useState({
         brightness: 1,
@@ -44,6 +45,10 @@ const EditImage = () => {
         e.preventDefault();
         switch(api) {
             case 'upload':
+
+
+
+            // Need to update to logged in user!
                 uploadImage(e, 1);
                 break;
             case 'download':
