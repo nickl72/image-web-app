@@ -13,7 +13,6 @@ import LargeImage from '../Modals/LargeImage';
 const Main = () => {
     const user = useSelector(selectUser)
     const activeImage = useSelector(selectActiveImage)
-    console.log(Boolean(activeImage.id))
     return (
         <main>
             {activeImage.modal && <LargeImage />}

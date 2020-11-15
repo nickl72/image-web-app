@@ -4,8 +4,8 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    // baseURL: 'http://127.0.0.1:8000/api'
-    baseURL: 'https://flow-images.herokuapp.com/api'
+    baseURL: 'http://127.0.0.1:8000/api'
+    // baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -113,4 +113,14 @@ export const randomImages = async () => {
 export const getImageSize = async (id) => {
     const resp = await api.get(`images/size/${id}/`)
     return resp.data
+}
+
+export const userImages = async (userId) => {
+    const resp = await api.get(`userimages/${userId}/`);
+    // console.log(resp)
+    return resp.data
+}
+
+export const pingServer = async () => {
+    const resp = await api.get('')
 }
