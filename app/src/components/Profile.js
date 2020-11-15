@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 import {userImages } from '../services/api_helper';
 
 const Profile = () => {
+    const user = useSelector(selectUser);
     const [images, setImages] = useState([])
     const getImages = async () => {
-        const imgs = await userImages(1)
+        const imgs = await userImages(user.id)
         setImages(imgs)
     }
     if (!images[0]) {
