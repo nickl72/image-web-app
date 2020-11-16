@@ -29,7 +29,7 @@ const Header = () => {
 
     return(
         <StyledHeader>
-            <Link to='/'><h1>Flow Images</h1></Link>
+            <Link to='/' onClick={clearImages}><h1>Flow Images</h1></Link>
             <input type='text' placeholder='Search' />
             {user.userId ? 
             <div><Link to='/profile' onClick={clearImages}>Profile</Link><Anchor onClick={handleLogout}>Logout</Anchor></div>

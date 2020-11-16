@@ -3,16 +3,18 @@ import {Image} from '../styles/Home'
 import { randomImages} from '../services/api_helper';
 import { Link } from 'react-router-dom';
 import { openModal, setActiveImage } from '../features/activeImageSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setImageList, selectImageList } from '../features/imageListSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const [images, setImages] = useState(null)
+    const images = useSelector(selectImageList)
     const callApi = async () => {
         const images = await randomImages()
-        setImages(images)
+        dispatch(setImageList(images))
     }
-    if (!images) {
+    console.log(images)
+    if (!images[0]) {
         callApi()
     }
     const handleclick = (e, img) => {

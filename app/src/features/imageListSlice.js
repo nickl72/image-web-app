@@ -8,8 +8,9 @@ export const imageListSlice = createSlice({
     reducers: {
         setImageList: (state, action) => {
             let images = action.payload;
-            images.forEach(img => {
+            images.forEach((img, index) => {
                 img.modal=false
+                img.index = index
             })
             console.log(images)
             state.images = images

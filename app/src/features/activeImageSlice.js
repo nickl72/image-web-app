@@ -11,7 +11,8 @@ export const activeImageSlice = createSlice({
         public: null,
         creator: null,
         originals: [],
-        modal: false
+        modal: false,
+        index: null
     },
     reducers: {
         setActiveImage: (state, action) => {
@@ -29,7 +30,8 @@ export const activeImageSlice = createSlice({
                 public: null,
                 creator: null,
                 originals: [],
-                modal:false
+                modal:false,
+                index: null
             }
         },
         openModal: (state) => {
