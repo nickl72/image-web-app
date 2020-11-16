@@ -2,6 +2,7 @@ import React from 'react';
 import { FullScreenModal } from '../../styles/GlobalComponents'
 import { selectActiveImage, openModal, clsoeModal, setActiveImage } from '../../features/activeImageSlice';
 import { selectImageList } from '../../features/imageListSlice';
+import { selectUser } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,8 @@ const LgModal = styled.div`
 const LargeImage = () => {
     const dispatch = useDispatch();
     const images = useSelector(selectImageList);
-    const image = useSelector(selectActiveImage)
+    const image = useSelector(selectActiveImage);
+    const user = useSelector(selectUser);
     const closeModal = (e) => {
         if (e.currentTarget === e.target) {
             dispatch(clsoeModal());
