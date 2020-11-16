@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Edit } from '../styles/Edit';
-import { getImageById, editImage, uploadImage, downloadImage, downloadAscii, getImageSize } from '../services/api_helper';
+import { editImage, uploadImage, downloadImage, downloadAscii, getImageSize, cropImage} from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveImage, selectActiveImage } from '../features/activeImageSlice';
+import { selectActiveImage } from '../features/activeImageSlice';
 import { selectUser } from '../features/userSlice';
+import Crop from './Crop';
 
 const EditImage = () => {
     const dispatch = useDispatch();
     const activeImage = useSelector(selectActiveImage);
     const user = useSelector(selectUser);
+
 
     const [image, setImage] = useState(activeImage.path)
     const [imageSize, setImageSize] = useState({width: null, height: null})
@@ -21,18 +23,16 @@ const EditImage = () => {
         blue: 0
     })
 
-    if (!image) {
-        const image_id=1
-        getImageById(image_id).then(resp => {
-            if (resp){
-                setImage(resp.path)
-            }
-            getImageSize(image_id).then(size => {
-                setImageSize(size)
-                dispatch(setActiveImage(resp))
-            })
+    const [startCrop, setStartCrop] = useState({top: 0, left: 0})
+    const [cropSize, setCropSize] = useState({height: 0, width: 0})
+    const [cropClicks, setCropClicks] = useState(3)
+
+    if (!imageSize.width) {
+        getImageSize(activeImage.id).then(size => {
+            setImageSize(size)
         })
     }
+
         
     const handleChange = (e) => {
         e.preventDefault();
@@ -67,6 +67,35 @@ const EditImage = () => {
         }
     }
 
+    const cropClick = async (e) => {
+        if (cropClicks === 0) {
+            setStartCrop({top: e.clientY, left: e.clientX})
+        } else if (cropClicks === 1) {
+            //relative to window
+            let left = startCrop.left - e.target.x
+            let top = startCrop.top - e.target.y
+            let right = left + cropSize.width
+            let bottom = top + cropSize.height
+
+            // relative to file size
+            top = top * imageSize.height/e.target.height
+            bottom  = bottom * imageSize.height/e.target.height
+
+            left = left * imageSize.width/e.target.width
+            right = right * imageSize.width/e.target.width
+            const reload = image
+            setImage('')
+            await cropImage(activeImage.id, left, top, right, bottom)
+            setImage(reload+'?crop=true')
+        }
+        setCropClicks(cropClicks + 1)
+    }
+    const cropDrag = (e) => {
+        if (cropClicks === 1) {
+            setCropSize({height:e.clientY-startCrop.top, width: e.clientX-startCrop.left})
+        }
+    }
+
     return (
         <Edit>
             { !user.userId && <Redirect to='/' />}
@@ -90,7 +119,7 @@ const EditImage = () => {
                     <input type='file' name='path' />
                     <input type='submit' value = 'Upload' />
                 </form>
-                <p><a href='#'>Crop</a></p>
+                <p><a onClick={() => setCropClicks(0)}>Crop</a></p>
 
                 
                     <form href='#' onSubmit={(e) => {handleApiCall(e, 'download')}}>
@@ -106,7 +135,8 @@ const EditImage = () => {
 
             </div>
             <div className='image'>
-                {image && <img src={`${image}`} alt='' onClick={(e) => {}}/>}
+                {image && <img src={`${image}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
+                <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width}/>
                 {/* <p>-<input type='range' />+</p> */}
             </div>
         </Edit>

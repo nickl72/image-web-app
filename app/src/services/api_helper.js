@@ -100,9 +100,15 @@ export const downloadAscii = (id, html = 'False', fileName) => {
 //     axios.get('https://unsplash.com/photos/yC-Yzbqy7PY/download?force=true').then(resp => {console.log(resp)})
 // }
 
-// export const cropImage = () => {
-//     axios.get('/crop/')
-// }
+export const cropImage = async (id, left, top,right, bottom) => {
+    left = Math.round(left)
+    top = Math.round(top)
+    right = Math.round(right)
+    bottom = Math.round(bottom)
+    const resp = await api.get(`/crop/${id}/${left}/${top}/${right}/${bottom}/`)
+    console.log(resp)
+    return resp
+}
 
 export const randomImages = async () => {
     const resp = await api.get('/images/random/8/');
