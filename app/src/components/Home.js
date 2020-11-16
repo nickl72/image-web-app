@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Image} from '../styles/Home'
 import { randomImages} from '../services/api_helper';
 import { Link } from 'react-router-dom';
-import { setActiveImage } from '../features/activeImageSlice';
+import { openModal, setActiveImage } from '../features/activeImageSlice';
 import { useDispatch } from 'react-redux';
 
 const Home = () => {
@@ -17,9 +17,8 @@ const Home = () => {
     }
     const handleclick = (e, img) => {
         e.preventDefault()
-        img.modal=true;
         dispatch(setActiveImage(img))
-
+        dispatch(openModal())
     }
 
     return (

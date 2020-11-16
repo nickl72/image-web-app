@@ -1,6 +1,8 @@
 import axios from 'axios';
 // redux
 // import store from '../app/store';
+import { useDispatch } from 'react-redux';
+import { logout } from '../features/userSlice';
 
 
 export const api = axios.create({
@@ -123,4 +125,8 @@ export const userImages = async (userId) => {
 
 export const pingServer = async () => {
     const resp = await api.get('')
+}
+
+export const logout_helper = () => {
+    localStorage.removeItem('authToken')
 }

@@ -8,11 +8,12 @@ export const userSlice = createSlice({
     },
     reducers: {
         loginSuccess: (state, action) => {
-            state.username = action.payload.username
-            state.userId = action.payload.id
+            state.username = action.payload.username;
+            state.userId = action.payload.id;
         },
         logout: state => {
             state.username = null;
+            state.userId = null;
         }
     }
 });

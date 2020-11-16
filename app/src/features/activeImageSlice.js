@@ -32,13 +32,16 @@ export const activeImageSlice = createSlice({
                 modal:false
             }
         },
+        openModal: (state) => {
+            state.modal = true
+        },
         clsoeModal: (state) => {
             state.modal = false
         }
     }
 });
 
-export const { setActiveImage, removeActiveImage, clsoeModal } = activeImageSlice.actions;
+export const { setActiveImage, removeActiveImage, openModal, clsoeModal } = activeImageSlice.actions;
 
 export const selectActiveImage = state => state.activeImage;
 export const selectActiveImageId = state => state.activeImage.id;
