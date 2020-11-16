@@ -26,11 +26,15 @@ const LargeImage = () => {
     }
 
     const iterateImage =(e, i) => {
-        const index=image.index;
-        if (images.length > index + i || index + i < 0) {
-            dispatch(setActiveImage(images[index+i]))
-            dispatch(openModal())
+        e.preventDefault();
+        let index=image.index + i;
+        if (index < 0)  {
+            index = images.length-1;
+        } else if (index >= images.length) {
+            index = 0;
         }
+        dispatch(setActiveImage(images[index]))
+        dispatch(openModal())
 
     }
 

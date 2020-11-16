@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image} from '../styles/Home'
 import { randomImages} from '../services/api_helper';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,6 @@ const Home = () => {
         const images = await randomImages()
         dispatch(setImageList(images))
     }
-    console.log(images)
     if (!images[0]) {
         callApi()
     }

@@ -12,7 +12,6 @@ export const imageListSlice = createSlice({
                 img.modal=false
                 img.index = index
             })
-            console.log(images)
             state.images = images
         },
         clearImageList: (state) => {
