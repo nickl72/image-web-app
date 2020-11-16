@@ -132,3 +132,10 @@ export const pingServer = async () => {
 export const logout_helper = () => {
     localStorage.removeItem('authToken')
 }
+
+export const copyImage = async (userId, imageId) => {
+    const token = localStorage.getItem('authToken');
+    const resp = await api.get(`/images/copy/${userId}/${imageId}/`)
+    console.log(resp.data)
+    return resp.data
+}
