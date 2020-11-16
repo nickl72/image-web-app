@@ -45,9 +45,6 @@ const EditImage = () => {
         e.preventDefault();
         switch(api) {
             case 'upload':
-
-
-
             // Need to update to logged in user!
                 uploadImage(e, 1);
                 break;

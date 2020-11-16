@@ -1,8 +1,6 @@
 import axios from 'axios';
 // redux
 // import store from '../app/store';
-import { useDispatch } from 'react-redux';
-import { logout } from '../features/userSlice';
 
 
 export const api = axios.create({
@@ -75,7 +73,6 @@ export const downloadImage = (id, fileName) => {
         responseType: 'blob'
     }).then(resp => {
         // I hate this code so much, but it works
-        console.log(resp)
         const url = window.URL.createObjectURL(new Blob([resp.data]))
         const link = document.createElement('a');
         link.href = url;
@@ -119,12 +116,11 @@ export const getImageSize = async (id) => {
 
 export const userImages = async (userId) => {
     const resp = await api.get(`userimages/${userId}/`);
-    // console.log(resp)
     return resp.data
 }
 
 export const pingServer = async () => {
-    const resp = await api.get('')
+    api.get('')
 }
 
 export const logout_helper = () => {

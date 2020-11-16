@@ -5,6 +5,7 @@ import { selectImageList } from '../../features/imageListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {downloadImage, downloadAscii} from '../../services/api_helper';
 
 const LgModal = styled.div`
     height: 80vh;
@@ -13,6 +14,7 @@ const LgModal = styled.div`
         min-height: 80%;
         min-width: 80%;
     }
+    display: flex;
 `
 
 const LargeImage = () => {
@@ -38,14 +40,33 @@ const LargeImage = () => {
 
     }
 
+    const handleDownload = async (e) =>{
+        e.preventDefault();
+        const filetype = e.target.filetype.value
+        if (filetype === 'jpg') {
+            downloadImage(image.id, 'newfile.jpeg');
+        } else {
+            downloadAscii(image.id, (filetype === 'html' ? 'True' : 'False'), `newfile.${filetype}`)
+        }
+    }   
+
     return (
         <FullScreenModal onClick={closeModal}>
             <LgModal>
-                <a href='#'>Creator's page</a>
-                <a href='#' onClick={(e) => iterateImage(e, -1)} >previous</a>
+                {/* <a>Creator's page</a> */}
+                <a onClick={(e) => iterateImage(e, -1)} >previous</a>
                 <img src={image.path} alt=''/>
-                <a href='#' onClick={(e) => iterateImage(e, 1)} >next</a>
-                <a href='#'>Image Actions</a>
+                <a onClick={(e) => iterateImage(e, 1)} >next</a>
+
+                <form onSubmit={(e) => {handleDownload(e, 'download')}}>
+                        <input type='submit'value='Download Image' />
+                        <p>Download as: </p>
+                        <select name='filetype'>
+                            <option value='jpg'>JPEG</option>
+                            <option value='txt'>ASCII.txt</option>
+                            <option value='html'>ASCII.html</option>
+                        </select>
+                </form>
                 <Link to='/edit' onClick={closeModal}>Edit image</Link>
             </LgModal>
         </FullScreenModal>
