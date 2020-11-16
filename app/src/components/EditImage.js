@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Edit } from '../styles/Edit';
 import { getImageById, editImage, uploadImage, downloadImage, downloadAscii, getImageSize } from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +9,6 @@ import { selectUser } from '../features/userSlice';
 const EditImage = () => {
     const dispatch = useDispatch();
     const activeImage = useSelector(selectActiveImage);
-    console.log(activeImage);
     const user = useSelector(selectUser);
 
     const [image, setImage] = useState(activeImage.path)
@@ -72,6 +72,7 @@ const EditImage = () => {
 
     return (
         <Edit>
+            { !user.userId && <Redirect to='/' />}
             <div>
                 <h2>Edit</h2>
                 <h3>Brightness: {edits.brightness}</h3>
