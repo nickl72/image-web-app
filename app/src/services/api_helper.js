@@ -4,8 +4,8 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    // baseURL: 'http://127.0.0.1:8000/api'
-    baseURL: 'https://flow-images.herokuapp.com/api'
+    baseURL: 'http://127.0.0.1:8000/api'
+    // baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -73,7 +73,6 @@ export const downloadImage = (id, fileName) => {
         responseType: 'blob'
     }).then(resp => {
         // I hate this code so much, but it works
-        console.log(resp)
         const url = window.URL.createObjectURL(new Blob([resp.data]))
         const link = document.createElement('a');
         link.href = url;
@@ -113,4 +112,17 @@ export const randomImages = async () => {
 export const getImageSize = async (id) => {
     const resp = await api.get(`images/size/${id}/`)
     return resp.data
+}
+
+export const userImages = async (userId) => {
+    const resp = await api.get(`userimages/${userId}/`);
+    return resp.data
+}
+
+export const pingServer = async () => {
+    api.get('')
+}
+
+export const logout_helper = () => {
+    localStorage.removeItem('authToken')
 }

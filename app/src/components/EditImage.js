@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Edit } from '../styles/Edit';
 import { getImageById, editImage, uploadImage, downloadImage, downloadAscii, getImageSize } from '../services/api_helper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +11,7 @@ const EditImage = () => {
     const activeImage = useSelector(selectActiveImage);
     const user = useSelector(selectUser);
 
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState(activeImage.path)
     const [imageSize, setImageSize] = useState({width: null, height: null})
     const [edits, setEdits] = useState({
         brightness: 1,
@@ -44,6 +45,7 @@ const EditImage = () => {
         e.preventDefault();
         switch(api) {
             case 'upload':
+            // Need to update to logged in user!
                 uploadImage(e, 1);
                 break;
             case 'download':
@@ -67,6 +69,7 @@ const EditImage = () => {
 
     return (
         <Edit>
+            { !user.userId && <Redirect to='/' />}
             <div>
                 <h2>Edit</h2>
                 <h3>Brightness: {edits.brightness}</h3>

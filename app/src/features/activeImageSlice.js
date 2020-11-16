@@ -10,7 +10,9 @@ export const activeImageSlice = createSlice({
         edited: null,
         public: null,
         creator: null,
-        originals: []
+        originals: [],
+        modal: false,
+        index: null
     },
     reducers: {
         setActiveImage: (state, action) => {
@@ -27,13 +29,21 @@ export const activeImageSlice = createSlice({
                 edited: null,
                 public: null,
                 creator: null,
-                originals: []
+                originals: [],
+                modal:false,
+                index: null
             }
+        },
+        openModal: (state) => {
+            state.modal = true
+        },
+        clsoeModal: (state) => {
+            state.modal = false
         }
     }
 });
 
-export const { setActiveImage, resetActiveImage } = activeImageSlice.actions;
+export const { setActiveImage, removeActiveImage, openModal, clsoeModal } = activeImageSlice.actions;
 
 export const selectActiveImage = state => state.activeImage;
 export const selectActiveImageId = state => state.activeImage.id;
