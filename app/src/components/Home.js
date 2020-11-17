@@ -11,7 +11,7 @@ const Home = () => {
     const images = useSelector(selectImageList)
     const user = useSelector(selectUser)
     const [loaded, setLoaded] = useState(false)
-    
+
     const callApi = async () => {
         const images = await randomImages()
         dispatch(setImageList(images))
@@ -35,7 +35,7 @@ const Home = () => {
         <>
             { images && images.map((img, key) => 
                 <a onClick={(e) => handleclick(e,img)} key={key}>
-                    <Image src={img.path} alt='' />
+                    <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' />
                 </a>
             )}
              <form onSubmit={(e) => upload(e)}>
