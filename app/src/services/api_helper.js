@@ -109,7 +109,7 @@ export const cropImage = async (id, left, top,right, bottom) => {
 }
 
 export const randomImages = async () => {
-    const resp = await api.get('/images/random/8/');
+    const resp = await api.get('/images/random/12/');
     return resp.data
 }
 

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { FullScreenModal } from '../../styles/GlobalComponents';
+import { FullScreenModal, Submit } from '../../styles/GlobalComponents';
+import { Form, Input } from '../../styles/Auth';
 import { registerUser, loginUser } from '../../services/api_helper';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../features/userSlice';
@@ -54,16 +55,17 @@ const AuthForm = (props) => {
     return (
         <FullScreenModal onClick={closeForm}>
             <div>
-                <form onSubmit={handleSubmit}>
-                    { errorMessage && <p>{errorMessage}</p>}
-                    { !login && <input type='text' name='first_name' placeholder='First Name'/>}
-                    { !login && <input type='text' name='last_name' placeholder='Last Name'/>}
-                    <input type='text' name='username' placeholder='username'/>
-                    { !login && <input type='text' name='email' placeholder='email'/>}
-                    <input type='password' name='password' placeholder='Password'/>
-                    { login ? <input type='submit' value='Log In' /> : <input type='submit' value='Sign Up' />}
+                <Form onSubmit={handleSubmit}>
+                    <h2>{login ? 'Login to Flow Images' : 'Sign Up for Flow Images'}</h2>
+                    <p>{errorMessage ? errorMessage : ' '}</p>
+                    { !login && <Input type='text' name='first_name' placeholder='First Name'/>}
+                    { !login && <Input type='text' name='last_name' placeholder='Last Name'/>}
+                    <Input type='text' name='username' placeholder='username'/>
+                    { !login && <Input type='text' name='email' placeholder='email'/>}
+                    <Input type='password' name='password' placeholder='Password'/>
+                    { login ? <Submit type='submit' value='Log In' /> : <Submit type='submit' value='Sign Up' />}
                     <a onClick={() =>{setLogin(!login); setErrorMessage(null)}}>{ login ? 'Not Registered? Sign Up Here!': 'Already have an account? Return to Login!'}</a>
-                </form>
+                </Form>
             </div>
         </FullScreenModal>
     )

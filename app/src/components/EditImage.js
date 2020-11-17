@@ -101,7 +101,8 @@ const EditImage = () => {
     }
     const cropDrag = (e) => {
         if (cropClicks === 1) {
-            setCropSize({height:e.clientY-startCrop.top-5, width: e.clientX-startCrop.left-5})
+            const cursorOffset = 10
+            setCropSize({height:e.clientY-startCrop.top-cursorOffset, width: e.clientX-startCrop.left-cursorOffset})
         }
     }
 
