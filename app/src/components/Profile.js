@@ -6,7 +6,7 @@ import {userImages, uploadImage} from '../services/api_helper';
 import { setImageList, selectImageList } from '../features/imageListSlice';
 import { Redirect } from 'react-router-dom';
 import ImageListItem from './ImageListItem';
-import { StyledHome } from '../styles/Home';
+import { StyledHome, H2 } from '../styles/Home';
 
 
 const Profile = () => {
@@ -32,7 +32,7 @@ const Profile = () => {
     
     return (
         <>
-        <h2>{user.username}</h2>
+        <H2>{user.username}'s Images</H2>
         <StyledHome>
             {!user.userId && <Redirect to='/' />}
             { images.map((img, key) => <a onClick={(e) => handleclick(e,img)} key={key}>

@@ -21,3 +21,9 @@ export const StyledHome = styled.div`
     justify-content: space-evenly;
     flex-wrap: wrap;
 `
+
+export const H2 = styled.h2`
+    text-align: center;
+    font-size: xx-large;
+    color: ${colors.balck}
+`
