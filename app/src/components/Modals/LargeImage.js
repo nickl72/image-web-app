@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullScreenModal, Submit, Button } from '../../styles/GlobalComponents'
-import { selectActiveImage, openModal, clsoeModal, setActiveImage } from '../../features/activeImageSlice';
+import { selectActiveImage, openModal, closeModal, setActiveImage } from '../../features/activeImageSlice';
 import { selectImageList } from '../../features/imageListSlice';
 import { selectUser } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,9 +16,10 @@ const LargeImage = () => {
     const images = useSelector(selectImageList);
     const image = useSelector(selectActiveImage);
     const user = useSelector(selectUser);
-    const closeModal = (e) => {
+
+    const closeModalLocal = (e) => {
         if (e.currentTarget === e.target) {
-            dispatch(clsoeModal());
+            dispatch(closeModal());
         }
     }
 
@@ -53,11 +54,11 @@ const LargeImage = () => {
         if (user.userId !== image.creator && user.userId) {
             copyImage(user.userId, image.id).then(resp => {resp.creator=user.userId; dispatch(setActiveImage(resp))})
         }
-        closeModal(e)
+        dispatch(closeModal())
     }
 
     return (
-        <FullScreenModal onClick={closeModal}>
+        <FullScreenModal onClick={closeModalLocal}>
             <LgModal>
                 <Link to='/edit' onClick={goToEdit}><Button>Edit image</Button></Link>
                 <div className='image-container'>
