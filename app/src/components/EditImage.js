@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectActiveImage } from '../features/activeImageSlice';
 import { selectUser } from '../features/userSlice';
 import Crop from './Crop';
+import { Anchor, Submit } from '../styles/GlobalComponents';
 
 
 const EditImage = () => {
@@ -25,6 +26,7 @@ const EditImage = () => {
     const [startCrop, setStartCrop] = useState({top: 0, left: 0})
     const [cropSize, setCropSize] = useState({height: 0, width: 0})
     const [cropClicks, setCropClicks] = useState(3)
+    const [editOnChange, setEditOnChange] = useState(false)
 
     if (!imageSize.width) {
         getImageSize(activeImage.id).then(size => {
@@ -38,6 +40,13 @@ const EditImage = () => {
         const update = Object.assign({}, edits)
         update[e.target.name] = e.target.value
         setEdits(update)
+        if (editOnChange) {
+            handleApiCall(e,'edit')
+        }
+    }
+
+    const toggleEditOnChange = () => {
+        setEditOnChange(!editOnChange)
     }
 
     const handleApiCall = async (e, api) =>{
@@ -109,10 +118,10 @@ const EditImage = () => {
     return (
         <Edit>
             { !user.userId && <Redirect to='/' />}
-            <div>
+            <div className='edit-controls'>
                 <h2>Edit</h2>
-                <h3>
-                    Brightness: 
+                <span>
+                    <h3>Brightness:</h3>
                     <input 
                         type='number' 
                         name='brightness' 
@@ -122,7 +131,7 @@ const EditImage = () => {
                         value={edits.brightness} 
                         onChange={handleChange}
                     />
-                </h3>
+                </span>
                 <input 
                     type='range' 
                     name='brightness' 
@@ -132,8 +141,8 @@ const EditImage = () => {
                     value={edits.brightness} 
                     onChange={handleChange}
                 />
-                <h3>
-                    Blur: 
+                <span>
+                    <h3>Blur: </h3>
                     <input 
                         type='number' 
                         name='blur' 
@@ -142,7 +151,7 @@ const EditImage = () => {
                         value={edits.blur} 
                         onChange={handleChange}
                     />
-                </h3>
+                </span>
                 <input 
                     type='range' 
                     name='blur' 
@@ -151,9 +160,9 @@ const EditImage = () => {
                     value={edits.blur} 
                     onChange={handleChange}
                 />
-                <h3>Color</h3>
-                <h4>
-                    Red: 
+                <h3 className='color'>Color</h3>
+                <span>
+                    <h4>Red:</h4>
                     <input 
                         type='number'
                         name='red' 
@@ -162,7 +171,7 @@ const EditImage = () => {
                         value={edits.red} 
                         onChange={handleChange}
                     />
-                </h4>
+                </span>
                 <input 
                     type='range' 
                     name='red' 
@@ -171,17 +180,17 @@ const EditImage = () => {
                     value={edits.red} 
                     onChange={handleChange}
                 />
-                <h4>
-                    Green: 
+                <span>
+                    <h4>Green: </h4>
                     <input 
-                    type='number'
-                    name='green' 
-                    min='-255' 
-                    max='255'
-                    value={edits.green} 
-                    onChange={handleChange}
-                />
-                </h4>
+                        type='number'
+                        name='green' 
+                        min='-255' 
+                        max='255'
+                        value={edits.green} 
+                        onChange={handleChange}
+                    />
+                </span>                
                 <input 
                     type='range' 
                     name='green' 
@@ -190,8 +199,8 @@ const EditImage = () => {
                     value={edits.green} 
                     onChange={handleChange}
                 />
-                <h4>
-                    Blue: 
+                <span>
+                    <h4>Blue: </h4>
                     <input 
                         type='number'
                         name='blue' 
@@ -200,7 +209,7 @@ const EditImage = () => {
                         value={edits.blue} 
                         onChange={handleChange}
                     />
-                </h4>
+                </span>
                 <input 
                     type='range' 
                     name='blue' 
@@ -211,11 +220,11 @@ const EditImage = () => {
                 />
 
 
-                <p><a onClick={() => setCropClicks(0)}>Crop</a></p>
+                <p className='crop'><Anchor onClick={() => setCropClicks(0)}>Crop</Anchor></p>
 
                 
                     <form href='#' onSubmit={(e) => {handleApiCall(e, 'download')}}>
-                        <input type='submit'value='Download Image' />
+                        <Submit type='submit'value='Download Image' />
                         <p>Download as: </p>
                         <select name='filetype'>
                             <option value='jpg'>JPEG</option>
@@ -223,8 +232,13 @@ const EditImage = () => {
                             <option value='html'>ASCII.html</option>
                         </select>
                 </form>
-                <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
+                <Anchor onClick={(e) => handleApiCall(e, 'edit')} >Edit image</Anchor>
+                <span className='live'>
+                    <input type='checkbox' name='render' value='render' onChange={toggleEditOnChange}/>
+                    <label for='render' >Live Edits</label>
+                </span>
             </div>
+
             <div className='image' >
                 {image && <img  src={`${image}?t=${new Date().getTime()}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
                 {(cropClicks < 2) && <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width} />}

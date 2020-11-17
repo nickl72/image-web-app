@@ -9,9 +9,12 @@ export const StyledHeader = styled.header`
     align-items: center;
     color: ${colors.black};
     a {
-        text-decoration: none;
+        text-decoration: none;        
     }
     a h1 {
         color: ${colors.black};
+    }
+    button {
+        margin: 10px;
     }
 `

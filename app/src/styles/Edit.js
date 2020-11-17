@@ -2,10 +2,17 @@ import styled from 'styled-components';
 import colors from './colors';
 
 export const Edit = styled.div`
-    /* flex-grow: 1; */
+    flex-grow: 1;
     height: 100%;
-    margin: 10px;
+    padding: 10px;
     display: flex;
+    .edit-controls {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 
 
     .image {
@@ -24,6 +31,28 @@ export const Edit = styled.div`
     }
     div {
         min-height: 100%;
+    }
+    form {
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 1em;
+        margin-top: 1.2em;
+    }
+    .color {
+        margin-top: 3em;
+    }
+    .crop {
+        margin: 3em;
+    }
+    .live {
+        justify-content: center;
     }
 `
 

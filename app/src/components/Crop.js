@@ -16,14 +16,6 @@ const Div = styled.div.attrs(({props}) => ({
     `
 
 const Crop = (props) => {
-    console.log(props)
-
-    const theme = {
-        top: `${props.top}px`,
-        left: `${props.left}px`,
-        width: `${props.width}px`,
-        height: `${props.height}px`
-    }
     return (
             <Div props={props}/>
     )

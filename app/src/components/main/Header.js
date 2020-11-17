@@ -64,7 +64,7 @@ const Header = () => {
             }
             <Link to='/' onClick={homeImages}><h1>Flow Images</h1></Link>
             {user.userId ? 
-            <div><Link to='/profile' onClick={profileImages}>Profile</Link><Anchor onClick={handleLogout}>Logout</Anchor></div>
+            <div><Link to='/profile' onClick={profileImages}><Button>Profile</Button></Link><Anchor onClick={handleLogout}>Logout</Anchor></div>
             : 
             <Anchor onClick={toggleAuthForm}>Log In</Anchor>
             }

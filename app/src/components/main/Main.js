@@ -16,7 +16,7 @@ const Main = () => {
     return (
         <main>
             {activeImage.modal && <LargeImage />}
-            <Switch >
+            <Switch>
                 <Route path='/edit' component={EditImage} />
                 <Route path='/profile' component={Profile} />
                 <Route path='/' component={Home} />
