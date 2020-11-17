@@ -4,8 +4,8 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'https://flow-images.herokuapp.com/api'
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -134,6 +134,5 @@ export const logout_helper = () => {
 export const copyImage = async (userId, imageId) => {
     const token = localStorage.getItem('authToken');
     const resp = await api.get(`/images/copy/${userId}/${imageId}/`)
-    console.log(resp.data)
     return resp.data
 }

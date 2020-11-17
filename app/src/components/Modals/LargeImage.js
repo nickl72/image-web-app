@@ -4,20 +4,12 @@ import { selectActiveImage, openModal, clsoeModal, setActiveImage } from '../../
 import { selectImageList } from '../../features/imageListSlice';
 import { selectUser } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { LgModal } from '../../styles/Modal';
 import { Link } from 'react-router-dom';
 import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
 import { authOn }  from '../../features/authSlice';
 
-const LgModal = styled.div`
-    height: 80vh;
-    width: 80vw;
-    img {
-        min-height: 95%;
-        width: auto;
-    }
-    display: flex;
-`
+
 
 const LargeImage = () => {
     const dispatch = useDispatch();
@@ -67,11 +59,13 @@ const LargeImage = () => {
     return (
         <FullScreenModal onClick={closeModal}>
             <LgModal>
-                {/* <a>Creator's page</a> */}
-                <a onClick={(e) => iterateImage(e, -1)} >previous</a>
-                <img src={`${image.path}?t=${new Date().getTime()}`} alt=''/>
-                <a onClick={(e) => iterateImage(e, 1)} >next</a>
-
+                <Link to='/edit' onClick={goToEdit}>Edit image</Link>
+                <div>
+                    <a onClick={(e) => iterateImage(e, -1)} >previous</a>
+                    <img src={`${image.path}?t=${new Date().getTime()}`} alt=''/>
+                    <a onClick={(e) => iterateImage(e, 1)} >next</a>
+                </div>
+                
                 <form onSubmit={(e) => {handleDownload(e, 'download')}}>
                         <input type='submit'value='Download Image' />
                         <p>Download as: </p>
@@ -81,7 +75,7 @@ const LargeImage = () => {
                             <option value='html'>ASCII.html</option>
                         </select>
                 </form>
-                <Link to='/edit' onClick={goToEdit}>Edit image</Link>
+                
             </LgModal>
         </FullScreenModal>
     )
