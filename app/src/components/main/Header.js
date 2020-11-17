@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { selectUser, logout } from '../../features/userSlice';
 import { clearImageList, setImageList } from '../../features/imageListSlice';
-import { logout_helper, randomImages, userImages } from '../../services/api_helper';
+import { logout_helper, randomImages, userImages, uploadImage } from '../../services/api_helper';
 
 import AuthForm from '../Modals/AuthForm';
 
@@ -34,10 +34,18 @@ const Header = () => {
             dispatch(setImageList(imgs))
     }
 
+    const upload = (e) =>{
+        e.preventDefault();
+        uploadImage(e, user.userId);
+    }
+
     return(
         <StyledHeader>
+            <form onSubmit={(e) => upload(e)}>
+                    <input type='file' name='path' />
+                    <input type='submit' value = 'Upload' />
+            </form>
             <Link to='/' onClick={homeImages}><h1>Flow Images</h1></Link>
-            <input type='text' placeholder='Search' />
             {user.userId ? 
             <div><Link to='/profile' onClick={profileImages}>Profile</Link><Anchor onClick={handleLogout}>Logout</Anchor></div>
             : 
