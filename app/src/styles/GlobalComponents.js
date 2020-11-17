@@ -49,6 +49,10 @@ const defaultClickable = `
     &:active {
         box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5) inset;
     }
+    cursor: pointer;
+    &:hover {
+        color: ${colors.lava};
+    }
 `
 export const Anchor = styled.a`
     ${defaultClickable}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FullScreenModal } from '../../styles/GlobalComponents'
+import { FullScreenModal, Submit, Button } from '../../styles/GlobalComponents'
 import { selectActiveImage, openModal, clsoeModal, setActiveImage } from '../../features/activeImageSlice';
 import { selectImageList } from '../../features/imageListSlice';
 import { selectUser } from '../../features/userSlice';
@@ -59,21 +59,23 @@ const LargeImage = () => {
     return (
         <FullScreenModal onClick={closeModal}>
             <LgModal>
-                <Link to='/edit' onClick={goToEdit}>Edit image</Link>
-                <div>
-                    <a onClick={(e) => iterateImage(e, -1)} >previous</a>
+                <Link to='/edit' onClick={goToEdit}><Button>Edit image</Button></Link>
+                <div className='image-container'>
+                    <Button onClick={(e) => iterateImage(e, -1)} >previous</Button>
                     <img src={`${image.path}?t=${new Date().getTime()}`} alt=''/>
-                    <a onClick={(e) => iterateImage(e, 1)} >next</a>
+                    <Button onClick={(e) => iterateImage(e, 1)} >next</Button>
                 </div>
                 
                 <form onSubmit={(e) => {handleDownload(e, 'download')}}>
-                        <input type='submit'value='Download Image' />
-                        <p>Download as: </p>
-                        <select name='filetype'>
-                            <option value='jpg'>JPEG</option>
-                            <option value='txt'>ASCII.txt</option>
-                            <option value='html'>ASCII.html</option>
-                        </select>
+                        <Submit type='submit'value='Download Image' />
+                        <div>
+                            <p>Download as: </p>
+                            <select name='filetype'>
+                                <option value='jpg'>JPEG</option>
+                                <option value='txt'>ASCII.txt</option>
+                                <option value='html'>ASCII.html</option>
+                            </select>
+                        </div>
                 </form>
                 
             </LgModal>
