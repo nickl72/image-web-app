@@ -7,8 +7,8 @@ export const Edit = styled.div`
     .image {
         flex-grow: 1;
         img {
-            min-width: 100%;
             min-height: 100%;
+            width: auto;
         }
     }
 `

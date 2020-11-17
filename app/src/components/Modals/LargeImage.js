@@ -6,14 +6,14 @@ import { selectUser } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {downloadImage, downloadAscii} from '../../services/api_helper';
+import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
 
 const LgModal = styled.div`
     height: 80vh;
     width: 80vw;
     img {
-        min-height: 80%;
-        min-width: 80%;
+        min-height: 95%;
+        width: auto;
     }
     display: flex;
 `
@@ -52,6 +52,13 @@ const LargeImage = () => {
         }
     }   
 
+    const goToEdit = (e) => {
+        if (user.userId !== image.creator && user.userId) {
+            copyImage(user.userId, image.id).then(resp => {resp.creator=user.userId; dispatch(setActiveImage(resp))})
+        }
+        closeModal(e)
+    }
+
     return (
         <FullScreenModal onClick={closeModal}>
             <LgModal>
@@ -69,7 +76,7 @@ const LargeImage = () => {
                             <option value='html'>ASCII.html</option>
                         </select>
                 </form>
-                <Link to='/edit' onClick={closeModal}>Edit image</Link>
+                <Link to='/edit' onClick={goToEdit}>Edit image</Link>
             </LgModal>
         </FullScreenModal>
     )
