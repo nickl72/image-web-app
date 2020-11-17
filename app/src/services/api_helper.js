@@ -9,12 +9,13 @@ export const api = axios.create({
 })
 
 export const registerUser = async (registerData) => {
-    const resp = await api.post('/users/', registerData).catch((err) => (err.response));
+    let resp = await api.post('/users/', registerData).catch((err) => (err.response));
+    console.log(resp.data)
     let userId=null
     if (resp.status < 400 ) {
+        userId=resp.data.id;
+        resp = await api.post('/token/', registerData)
         localStorage.setItem('authToken', resp.data.access);
-        const user = await api.get(`/users/${registerData.username}`);
-        userId = user.data[0].id
     }
     return [resp, userId]
 }
