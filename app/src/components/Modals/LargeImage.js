@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
+import { authOn }  from '../../features/authSlice';
 
 const LgModal = styled.div`
     height: 80vh;
@@ -53,6 +54,10 @@ const LargeImage = () => {
     }   
 
     const goToEdit = (e) => {
+        if (!user.userId) {
+            dispatch(authOn())
+            return
+        }
         if (user.userId !== image.creator && user.userId) {
             copyImage(user.userId, image.id).then(resp => {resp.creator=user.userId; dispatch(setActiveImage(resp))})
         }

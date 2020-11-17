@@ -4,6 +4,11 @@ import { Form, Input } from '../../styles/Auth';
 import { registerUser, loginUser } from '../../services/api_helper';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../features/userSlice';
+import styled from 'styled-components';
+
+const Top = styled(FullScreenModal)`
+    z-index: 5;
+`
 
 const AuthForm = (props) => {
     const dispatch = useDispatch();
@@ -53,7 +58,7 @@ const AuthForm = (props) => {
         
     }
     return (
-        <FullScreenModal onClick={closeForm}>
+        <Top onClick={closeForm}>
             <div>
                 <Form onSubmit={handleSubmit}>
                     <h2>{login ? 'Login to Flow Images' : 'Sign Up for Flow Images'}</h2>
@@ -67,7 +72,7 @@ const AuthForm = (props) => {
                     <a onClick={() =>{setLogin(!login); setErrorMessage(null)}}>{ login ? 'Not Registered? Sign Up Here!': 'Already have an account? Return to Login!'}</a>
                 </Form>
             </div>
-        </FullScreenModal>
+        </Top>
     )
 }
 
