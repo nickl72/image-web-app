@@ -26,11 +26,6 @@ const Home = () => {
         dispatch(openModal())
     }
 
-    const upload = (e) =>{
-        e.preventDefault();
-        uploadImage(e, user.userId);
-    }
-
     return (
         <>
             { images && images.map((img, key) => 
@@ -38,10 +33,6 @@ const Home = () => {
                     <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' />
                 </a>
             )}
-             <form onSubmit={(e) => upload(e)}>
-                    <input type='file' name='path' />
-                    <input type='submit' value = 'Upload' />
-            </form>
         </>
     )
 }
