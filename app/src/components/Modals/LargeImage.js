@@ -64,7 +64,7 @@ const LargeImage = () => {
             <LgModal>
                 {/* <a>Creator's page</a> */}
                 <a onClick={(e) => iterateImage(e, -1)} >previous</a>
-                <img src={image.path} alt=''/>
+                <img src={`${image.path}?t=${new Date().getTime()}`} alt=''/>
                 <a onClick={(e) => iterateImage(e, 1)} >next</a>
 
                 <form onSubmit={(e) => {handleDownload(e, 'download')}}>

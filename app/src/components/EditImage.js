@@ -59,6 +59,13 @@ const EditImage = () => {
                 setImage('none')
                 const resp = await editImage(activeImage.id, edits);
                 setImage(reload)
+                setEdits({
+                    brightness: 1,
+                    blur: 0,
+                    red: 0,
+                    green: 0,
+                    blue: 0
+                })
                 break;
             default:
                 return
@@ -66,7 +73,6 @@ const EditImage = () => {
     }
 
     const cropClick = async (e) => {
-        console.log(e)
         if (cropClicks === 0) {
             setStartCrop({top: e.clientY, left: e.clientX})
         } else if (cropClicks === 1) {
@@ -100,24 +106,106 @@ const EditImage = () => {
             { !user.userId && <Redirect to='/' />}
             <div>
                 <h2>Edit</h2>
-                <h3>Brightness: {edits.brightness}</h3>
-                <input type='range' name='brightness' min='0' max='2' step='.01' value={edits.brightness} onChange={handleChange}/>
-                <h3>Blur: {edits.blur}</h3>
-                <input type='range' name='blur' min='0' max='5' value={edits.blur} onChange={handleChange}/>
+                <h3>
+                    Brightness: 
+                    <input 
+                        type='number' 
+                        name='brightness' 
+                        min='0' 
+                        max='2' 
+                        step='.01'  
+                        value={edits.brightness} 
+                        onChange={handleChange}
+                    />
+                </h3>
+                <input 
+                    type='range' 
+                    name='brightness' 
+                    min='0' 
+                    max='2' 
+                    step='.01' 
+                    value={edits.brightness} 
+                    onChange={handleChange}
+                />
+                <h3>
+                    Blur: 
+                    <input 
+                        type='number' 
+                        name='blur' 
+                        min='0' 
+                        max='5'
+                        value={edits.blur} 
+                        onChange={handleChange}
+                    />
+                </h3>
+                <input 
+                    type='range' 
+                    name='blur' 
+                    min='0' 
+                    max='5' 
+                    value={edits.blur} 
+                    onChange={handleChange}
+                />
                 <h3>Color</h3>
-                <h4>Red: {edits.red}</h4>
-                <input type='range' name='red' min='-255' max='255' value={edits.red} onChange={handleChange}/>
-                <h4>Green: {edits.green}</h4>
-                <input type='range' name='green' min='-255' max='255' value={edits.green} onChange={handleChange}/>
-                <h4>Blue: {edits.blue}</h4>
-                <input type='range' name='blue' min='-255' max='255' value={edits.blue} onChange={handleChange}/>
+                <h4>
+                    Red: 
+                    <input 
+                        type='number'
+                        name='red' 
+                        min='-255' 
+                        max='255'
+                        value={edits.red} 
+                        onChange={handleChange}
+                    />
+                </h4>
+                <input 
+                    type='range' 
+                    name='red' 
+                    min='-255' 
+                    max='255' 
+                    value={edits.red} 
+                    onChange={handleChange}
+                />
+                <h4>
+                    Green: 
+                    <input 
+                    type='number'
+                    name='green' 
+                    min='-255' 
+                    max='255'
+                    value={edits.green} 
+                    onChange={handleChange}
+                />
+                </h4>
+                <input 
+                    type='range' 
+                    name='green' 
+                    min='-255' 
+                    max='255' 
+                    value={edits.green} 
+                    onChange={handleChange}
+                />
+                <h4>
+                    Blue: 
+                    <input 
+                        type='number'
+                        name='blue' 
+                        min='-255' 
+                        max='255'
+                        value={edits.blue} 
+                        onChange={handleChange}
+                    />
+                </h4>
+                <input 
+                    type='range' 
+                    name='blue' 
+                    min='-255' 
+                    max='255' 
+                    value={edits.blue} 
+                    onChange={handleChange}
+                />
 
-                <h3>Insert Image</h3>
-                <p>upload: </p>
-                <form onSubmit={(e) => {handleApiCall(e,'upload')}}>
-                    <input type='file' name='path' />
-                    <input type='submit' value = 'Upload' />
-                </form>
+
                 <p><a onClick={() => setCropClicks(0)}>Crop</a></p>
 
                 
@@ -131,11 +219,10 @@ const EditImage = () => {
                         </select>
                 </form>
                 <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
-
             </div>
             <div className='image' >
                 {image && <img src={`${image}?t=${new Date().getTime()}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
-                {cropClicks < 3 && <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width} />}
+                {(cropClicks < 2) && <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width} />}
                 {/* <p>-<input type='range' />+</p> */}
             </div>
         </Edit>
