@@ -7,6 +7,11 @@ export const Modal = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
 
     div {
         background: ${colors.white};
@@ -22,6 +27,10 @@ export const FullScreenModal = styled(Modal)`
     width: 100%;
     left: 0;
     top: 0;
+    img {
+        max-width: 75vw;
+        height: auto;
+    }
 `
 
 const defaultClickable = `

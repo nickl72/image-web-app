@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Image} from '../styles/Home'
+import {Image, StyledHome} from '../styles/Home'
 import { randomImages, uploadImage} from '../services/api_helper';
 import { openModal, setActiveImage } from '../features/activeImageSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setImageList, selectImageList } from '../features/imageListSlice';
 import { selectUser } from '../features/userSlice';
+import ImageActions from './Modals/ImageActions';
+import ImageListItem from './ImageListItem';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -26,14 +28,20 @@ const Home = () => {
         dispatch(openModal())
     }
 
+    const toggleModal = (e) => {
+        e.target.modal = true
+    }
+
     return (
-        <>
+        <StyledHome>
             { images && images.map((img, key) => 
                 <a onClick={(e) => handleclick(e,img)} key={key}>
-                    <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' />
+                    <ImageListItem img={img}/>
+                    {/* <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' onMouseEnter={toggleModal}/>
+                    <ImageActions /> */}
                 </a>
             )}
-        </>
+        </StyledHome>
     )
 }
 
