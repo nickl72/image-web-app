@@ -39,10 +39,15 @@ const defaultClickable = `
     color: ${colors.white};
     padding: 1em;
     border-radius: 3px;
-    box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.green},.5);
+    box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5);
     cursor: pointer;
+    font-size: large;
+    font-weight: 700;
     &:hover {
         box-shadow: none;
+    }
+    &:active {
+        box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5) inset;
     }
 `
 export const Anchor = styled.a`
