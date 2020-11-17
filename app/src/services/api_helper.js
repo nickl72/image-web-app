@@ -10,7 +10,6 @@ export const api = axios.create({
 
 export const registerUser = async (registerData) => {
     let resp = await api.post('/users/', registerData).catch((err) => (err.response));
-    console.log(resp.data)
     let userId=null
     if (resp.status < 400 ) {
         userId=resp.data.id;
