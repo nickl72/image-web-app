@@ -9,6 +9,12 @@ export const Image = styled.img`
     border-radius: 5px;
     box-shadow: 2px 2px 10px 2px ${colors.black};
     cursor: pointer;
+    &:hover {
+        box-shadow:4px 4px 12px 4px ${colors.black};
+    }
+    &:active {
+        box-shadow: none;
+    }
 `
 export const StyledHome = styled.div`
     display: flex;

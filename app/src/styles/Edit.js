@@ -17,10 +17,19 @@ export const Edit = styled.div`
         padding: 10px;
         img {
             min-height: 100%;
+            max-width: 100%;
             width: auto;
+            cursor: crosshair;
         }
     }
     div {
         min-height: 100%;
     }
 `
+
+// export const Image = styled.img.attrs(props => ({
+//     style: {
+//         height:  ((props.height > props.width) ? '100%' : 'auto'),
+//         width: ((props.height > props.width) ? 'auto' : '100%')
+//     }
+// }))

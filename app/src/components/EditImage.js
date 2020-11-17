@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Edit } from '../styles/Edit';
+import { Edit, Image} from '../styles/Edit';
 import { editImage, uploadImage, downloadImage, downloadAscii, getImageSize, cropImage} from '../services/api_helper';
 import { useSelector } from 'react-redux';
 import { selectActiveImage } from '../features/activeImageSlice';
 import { selectUser } from '../features/userSlice';
 import Crop from './Crop';
+
 
 const EditImage = () => {
     const activeImage = useSelector(selectActiveImage);
@@ -92,6 +93,9 @@ const EditImage = () => {
             setImage('none')
             await cropImage(activeImage.id, left, top, right, bottom)
             setImage(reload)
+            setCropClicks(2)
+            setCropSize({height: 0, width: 0})
+            setStartCrop({top:0, left:0})
         }
         setCropClicks(cropClicks + 1)
     }
@@ -221,7 +225,7 @@ const EditImage = () => {
                 <a onClick={(e) => handleApiCall(e, 'edit')} >Edit images</a>
             </div>
             <div className='image' >
-                {image && <img src={`${image}?t=${new Date().getTime()}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
+                {image && <img  src={`${image}?t=${new Date().getTime()}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
                 {(cropClicks < 2) && <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width} />}
                 {/* <p>-<input type='range' />+</p> */}
             </div>

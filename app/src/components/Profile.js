@@ -5,6 +5,8 @@ import {setActiveImage, openModal} from '../features/activeImageSlice';
 import {userImages, uploadImage} from '../services/api_helper';
 import { setImageList, selectImageList } from '../features/imageListSlice';
 import { Redirect } from 'react-router-dom';
+import ImageListItem from './ImageListItem';
+import { StyledHome } from '../styles/Home';
 
 
 const Profile = () => {
@@ -29,11 +31,20 @@ const Profile = () => {
 
     
     return (
-        <div>
+        <>
+        <h2>{user.username}</h2>
+        <StyledHome>
             {!user.userId && <Redirect to='/' />}
-            <h2>{user.username}</h2>
-            { images.map((img, key) => <img src={`${img.path}?t=${new Date().getTime()}`} key={key} alt='' onClick={(e) => handleclick(e,img)}/> )}
-        </div>
+            { images.map((img, key) => <a onClick={(e) => handleclick(e,img)} key={key}>
+                    <ImageListItem img={img}/>
+                    {/* <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' onMouseEnter={toggleModal}/>
+                    <ImageActions /> */}
+                </a>
+            )}
+            
+            {/* <img src={`${img.path}?t=${new Date().getTime()}`} key={key} alt='' onClick={(e) => handleclick(e,img)}/> )} */}
+        </StyledHome>
+        </>
     )
 }
 export default Profile;
