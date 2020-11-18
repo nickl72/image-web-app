@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Edit, Image} from '../styles/Edit';
-import { editImage, uploadImage, downloadImage, downloadAscii, getImageSize, cropImage} from '../services/api_helper';
+import { editImage, uploadImage, downloadImage, downloadAscii, getImageSize, cropImage } from '../services/api_helper';
+
+// Redux
 import { useSelector } from 'react-redux';
 import { selectActiveImage } from '../features/activeImageSlice';
 import { selectUser } from '../features/userSlice';
+
+// Components
 import Crop from './Crop';
+
+//Styles
 import { Anchor, Submit } from '../styles/GlobalComponents';
+import { Edit } from '../styles/Edit';
 
 
 const EditImage = () => {
@@ -53,7 +59,6 @@ const EditImage = () => {
         e.preventDefault();
         switch(api) {
             case 'upload':
-            // Need to update to logged in user!
                 uploadImage(e, user.userId);
                 break;
             case 'download':
@@ -242,7 +247,6 @@ const EditImage = () => {
             <div className='image' >
                 {image && <img  src={`${image}?t=${new Date().getTime()}`} alt='' onClick={(e) => cropClick(e)} onMouseMove={(e) => cropDrag(e)}/>}
                 {(cropClicks < 2) && <Crop  top={startCrop.top} left={startCrop.left} height={cropSize.height} width={cropSize.width} />}
-                {/* <p>-<input type='range' />+</p> */}
             </div>
         </Edit>
     )

@@ -1,11 +1,9 @@
 import axios from 'axios';
-// redux
-// import store from '../app/store';
 
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'https://flow-images.herokuapp.com/api'
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
@@ -59,8 +57,6 @@ export const uploadImage =  (e, creatorId, title='none') => {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${token}`
     }
-    }).then(resp =>{
-        console.log(resp)
     }).catch(err => {
         console.log(err)
     })

@@ -1,13 +1,17 @@
 import React from 'react';
-import { FullScreenModal, Submit, Button } from '../../styles/GlobalComponents'
+import { Link } from 'react-router-dom';
+import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { selectActiveImage, openModal, closeModal, setActiveImage } from '../../features/activeImageSlice';
 import { selectImageList } from '../../features/imageListSlice';
 import { selectUser } from '../../features/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { LgModal } from '../../styles/Modal';
-import { Link } from 'react-router-dom';
-import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
 import { authOn }  from '../../features/authSlice';
+
+// Style
+import { LgModal } from '../../styles/Modal';
+import { FullScreenModal, Submit, Button } from '../../styles/GlobalComponents'
 
 
 

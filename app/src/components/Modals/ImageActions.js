@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from '../../styles/GlobalComponents'
 
-
+// not yet implemented
 const ImageActions = () => {
     return (
         <Modal>

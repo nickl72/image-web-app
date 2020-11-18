@@ -1,9 +1,12 @@
 import React from 'react'
+import { Route, Switch } from 'react-router';
+
+// Redux
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice'
 import { selectActiveImage } from '../../features/activeImageSlice';
-import { Route, Switch } from 'react-router';
 
+// Components
 import EditImage from '../EditImage';
 import Home from '../Home';
 import Profile from '../Profile';

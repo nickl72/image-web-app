@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { logout_helper, randomImages, userImages, uploadImage } from '../../services/api_helper';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser, logout } from '../../features/userSlice';
 import { clearImageList, setImageList } from '../../features/imageListSlice';
 import { selectShowAuth, toggleAuth } from '../../features/authSlice';
-import { logout_helper, randomImages, userImages, uploadImage } from '../../services/api_helper';
-import { Button, Submit } from '../../styles/GlobalComponents';
 
+// components
 import AuthForm from '../Modals/AuthForm';
 
 // styles
 import { StyledHeader } from '../../styles/Header'
-import { Anchor } from '../../styles/GlobalComponents'
+import { Anchor, Button, Submit } from '../../styles/GlobalComponents';
 
 const Header = () => {
     const dispatch = useDispatch();

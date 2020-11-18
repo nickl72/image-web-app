@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import { FullScreenModal, Submit } from '../../styles/GlobalComponents';
-import { Form, Input } from '../../styles/Auth';
 import { registerUser, loginUser } from '../../services/api_helper';
+
+// Redux
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../features/userSlice';
+
+// Styles
+import { FullScreenModal, Submit } from '../../styles/GlobalComponents';
+import { Form, Input } from '../../styles/Auth';
 import styled from 'styled-components';
 
 const Top = styled(FullScreenModal)`

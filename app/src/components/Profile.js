@@ -1,11 +1,17 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { userImages } from '../services/api_helper';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../features/userSlice';
-import {setActiveImage, openModal} from '../features/activeImageSlice';
-import {userImages, uploadImage} from '../services/api_helper';
+import { setActiveImage, openModal } from '../features/activeImageSlice';
 import { setImageList, selectImageList } from '../features/imageListSlice';
-import { Redirect } from 'react-router-dom';
+
+// Components
 import ImageListItem from './ImageListItem';
+
+// Styles
 import { StyledHome, H2 } from '../styles/Home';
 
 
@@ -37,12 +43,9 @@ const Profile = () => {
             {!user.userId && <Redirect to='/' />}
             { images.map((img, key) => <a onClick={(e) => handleclick(e,img)} key={key}>
                     <ImageListItem img={img}/>
-                    {/* <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' onMouseEnter={toggleModal}/>
-                    <ImageActions /> */}
                 </a>
             )}
             
-            {/* <img src={`${img.path}?t=${new Date().getTime()}`} key={key} alt='' onClick={(e) => handleclick(e,img)}/> )} */}
         </StyledHome>
         </>
     )
