@@ -1,5 +1,10 @@
 # Image Web App
 This is a basic image editing app. Post MVP goals are to use Machine learning to generate images with certain attributes and add an artistic style to images.
+
+[Live Site](https://flow-images.surge.sh/)
+
+[Backend Repo](https://github.com/nickl72/image-web-app-backend/tree/deployment)
+
 # Project Goals
  
 ## Bronze
@@ -14,7 +19,7 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
  * Front end has option to render on change or batch changes 
  * Users can convert images to ASCII
  * Images can be saved/downloaded after editing
- * Use Lorem Picsum/unsplash API to get random images to use
+ * Use Lorem Picsum/unsplash API to get images to use
 
 ## Silver 
  * ASCII images can be downloaded as Text or pre styled HTML 
@@ -42,3 +47,4 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
 * [Django](https://www.djangoproject.com/)
+* Python Pillow Library
