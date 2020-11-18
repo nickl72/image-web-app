@@ -16,7 +16,6 @@ export const Edit = styled.div`
 
 
     .image {
-        /* background: ${colors.black}; */
         flex-grow: 1;
         display: flex;
         justify-content: center;
@@ -44,15 +43,27 @@ export const Edit = styled.div`
         justify-content: space-between;
         margin: 0 1em;
         margin-top: 1.2em;
+        input {
+            margin-right: 1em;
+            width: 3.5em;
+        }
     }
     .color {
-        margin-top: 3em;
+        margin-top: 1.5em;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
     .crop {
-        margin: 3em;
+        margin: 2em;
     }
     .live {
         justify-content: center;
+    }
+    h2 {
+        margin-bottom: -.3em;
+    }
+    .color-input {
+        margin: 0;
     }
 `
 

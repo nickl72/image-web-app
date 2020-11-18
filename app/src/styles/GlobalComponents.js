@@ -37,7 +37,7 @@ const defaultClickable = `
     text-decoration: none;
     background: ${colors.green};
     color: ${colors.white};
-    padding: 1em;
+    padding: .5em;
     border-radius: 3px;
     box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5);
     cursor: pointer;

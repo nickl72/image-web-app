@@ -161,7 +161,7 @@ const EditImage = () => {
                     onChange={handleChange}
                 />
                 <h3 className='color'>Color</h3>
-                <span>
+                <span className='color-input'>
                     <h4>Red:</h4>
                     <input 
                         type='number'
@@ -180,7 +180,7 @@ const EditImage = () => {
                     value={edits.red} 
                     onChange={handleChange}
                 />
-                <span>
+                <span className='color-input'>
                     <h4>Green: </h4>
                     <input 
                         type='number'
@@ -199,7 +199,7 @@ const EditImage = () => {
                     value={edits.green} 
                     onChange={handleChange}
                 />
-                <span>
+                <span className='color-input'>
                     <h4>Blue: </h4>
                     <input 
                         type='number'
