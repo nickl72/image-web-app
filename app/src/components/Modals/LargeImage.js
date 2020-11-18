@@ -1,31 +1,29 @@
 import React from 'react';
-import { FullScreenModal } from '../../styles/GlobalComponents'
-import { selectActiveImage, openModal, clsoeModal, setActiveImage } from '../../features/activeImageSlice';
-import { selectImageList } from '../../features/imageListSlice';
-import { selectUser } from '../../features/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {downloadImage, downloadAscii, copyImage} from '../../services/api_helper';
 
-const LgModal = styled.div`
-    height: 80vh;
-    width: 80vw;
-    img {
-        min-height: 95%;
-        width: auto;
-    }
-    display: flex;
-`
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { selectActiveImage, openModal, closeModal, setActiveImage } from '../../features/activeImageSlice';
+import { selectImageList } from '../../features/imageListSlice';
+import { selectUser } from '../../features/userSlice';
+import { authOn }  from '../../features/authSlice';
+
+// Style
+import { LgModal } from '../../styles/Modal';
+import { FullScreenModal, Submit, Button } from '../../styles/GlobalComponents'
+
+
 
 const LargeImage = () => {
     const dispatch = useDispatch();
     const images = useSelector(selectImageList);
     const image = useSelector(selectActiveImage);
     const user = useSelector(selectUser);
-    const closeModal = (e) => {
+
+    const closeModalLocal = (e) => {
         if (e.currentTarget === e.target) {
-            dispatch(clsoeModal());
+            dispatch(closeModal());
         }
     }
 
@@ -53,30 +51,38 @@ const LargeImage = () => {
     }   
 
     const goToEdit = (e) => {
+        if (!user.userId) {
+            dispatch(authOn())
+            return
+        }
         if (user.userId !== image.creator && user.userId) {
             copyImage(user.userId, image.id).then(resp => {resp.creator=user.userId; dispatch(setActiveImage(resp))})
         }
-        closeModal(e)
+        dispatch(closeModal())
     }
 
     return (
-        <FullScreenModal onClick={closeModal}>
+        <FullScreenModal onClick={closeModalLocal}>
             <LgModal>
-                {/* <a>Creator's page</a> */}
-                <a onClick={(e) => iterateImage(e, -1)} >previous</a>
-                <img src={image.path} alt=''/>
-                <a onClick={(e) => iterateImage(e, 1)} >next</a>
-
+                <Link to='/edit' onClick={goToEdit}><Button>Edit image</Button></Link>
+                <div className='image-container'>
+                    <Button onClick={(e) => iterateImage(e, -1)} >previous</Button>
+                    <img src={`${image.path}?t=${new Date().getTime()}`} alt=''/>
+                    <Button onClick={(e) => iterateImage(e, 1)} >next</Button>
+                </div>
+                
                 <form onSubmit={(e) => {handleDownload(e, 'download')}}>
-                        <input type='submit'value='Download Image' />
-                        <p>Download as: </p>
-                        <select name='filetype'>
-                            <option value='jpg'>JPEG</option>
-                            <option value='txt'>ASCII.txt</option>
-                            <option value='html'>ASCII.html</option>
-                        </select>
+                        <Submit type='submit'value='Download Image' />
+                        <div>
+                            <p>Download as: </p>
+                            <select name='filetype'>
+                                <option value='jpg'>JPEG</option>
+                                <option value='txt'>ASCII.txt</option>
+                                <option value='html'>ASCII.html</option>
+                            </select>
+                        </div>
                 </form>
-                <Link to='/edit' onClick={goToEdit}>Edit image</Link>
+                
             </LgModal>
         </FullScreenModal>
     )

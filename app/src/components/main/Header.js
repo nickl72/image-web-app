@@ -1,23 +1,32 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import { selectUser, logout } from '../../features/userSlice';
-import { clearImageList, setImageList } from '../../features/imageListSlice';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { logout_helper, randomImages, userImages, uploadImage } from '../../services/api_helper';
 
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser, logout } from '../../features/userSlice';
+import { clearImageList, setImageList } from '../../features/imageListSlice';
+import { selectShowAuth, toggleAuth } from '../../features/authSlice';
+
+// components
 import AuthForm from '../Modals/AuthForm';
 
 // styles
 import { StyledHeader } from '../../styles/Header'
-import { Anchor } from '../../styles/GlobalComponents'
+import { Anchor, Button, Submit } from '../../styles/GlobalComponents';
 
 const Header = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
-    const [Auth, setAuth] = useState(false);
+    const Auth = useSelector(selectShowAuth);
+    const [uploadForm, setUpload] = useState(false)
+    // const [Auth, setAuth] = useState(showAuth);
     const toggleAuthForm = () => {
-        setAuth(!Auth)
+        dispatch(toggleAuth())
     }
+
+
+    
     const handleLogout = () => {
         dispatch(logout());
         logout_helper()
@@ -36,18 +45,28 @@ const Header = () => {
 
     const upload = (e) =>{
         e.preventDefault();
-        uploadImage(e, user.userId);
+        if (user.userId) {
+            uploadImage(e, user.userId);
+            setUpload(false)
+        } else {
+            dispatch(toggleAuth())
+        }
     }
+    
 
     return(
         <StyledHeader>
+            {uploadForm ? 
             <form onSubmit={(e) => upload(e)}>
                     <input type='file' name='path' />
-                    <input type='submit' value = 'Upload' />
+                    <Submit type='submit' value = 'Upload' />
             </form>
+            :
+            <Button onClick={() => setUpload(true)}>Upload Image</Button>
+            }
             <Link to='/' onClick={homeImages}><h1>Flow Images</h1></Link>
             {user.userId ? 
-            <div><Link to='/profile' onClick={profileImages}>Profile</Link><Anchor onClick={handleLogout}>Logout</Anchor></div>
+            <div><Link to='/profile' onClick={profileImages}><Button>Profile</Button></Link><Anchor onClick={handleLogout}>Logout</Anchor></div>
             : 
             <Anchor onClick={toggleAuthForm}>Log In</Anchor>
             }

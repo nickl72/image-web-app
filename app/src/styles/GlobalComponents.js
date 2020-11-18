@@ -7,6 +7,11 @@ export const Modal = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
 
     div {
         background: ${colors.white};
@@ -22,18 +27,31 @@ export const FullScreenModal = styled(Modal)`
     width: 100%;
     left: 0;
     top: 0;
+    img {
+        max-width: 75vw;
+        height: auto;
+    }
 `
 
 const defaultClickable = `
     text-decoration: none;
     background: ${colors.green};
     color: ${colors.white};
-    padding: 1em;
+    padding: .5em;
     border-radius: 3px;
-    box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.green},.5);
+    box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5);
     cursor: pointer;
+    font-size: large;
+    font-weight: 700;
     &:hover {
         box-shadow: none;
+    }
+    &:active {
+        box-shadow: 2px 2px 2px 2px rgba(${colors.rgb.lava},.5) inset;
+    }
+    cursor: pointer;
+    &:hover {
+        color: ${colors.lava};
     }
 `
 export const Anchor = styled.a`

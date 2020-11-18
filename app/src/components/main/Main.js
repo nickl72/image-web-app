@@ -1,9 +1,12 @@
 import React from 'react'
+import { Route, Switch } from 'react-router';
+
+// Redux
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice'
 import { selectActiveImage } from '../../features/activeImageSlice';
-import { Route, Switch } from 'react-router';
 
+// Components
 import EditImage from '../EditImage';
 import Home from '../Home';
 import Profile from '../Profile';
@@ -16,7 +19,7 @@ const Main = () => {
     return (
         <main>
             {activeImage.modal && <LargeImage />}
-            <Switch >
+            <Switch>
                 <Route path='/edit' component={EditImage} />
                 <Route path='/profile' component={Profile} />
                 <Route path='/' component={Home} />

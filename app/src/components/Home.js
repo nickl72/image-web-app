@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
-import {Image} from '../styles/Home'
-import { randomImages, uploadImage} from '../services/api_helper';
-import { openModal, setActiveImage } from '../features/activeImageSlice';
+import React, { useState } from 'react';
+import { randomImages } from '../services/api_helper';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
+import { openModal, setActiveImage } from '../features/activeImageSlice';
 import { setImageList, selectImageList } from '../features/imageListSlice';
-import { selectUser } from '../features/userSlice';
+
+// Components
+import ImageListItem from './ImageListItem';
+
+// Styles
+import { StyledHome} from '../styles/Home'
 
 const Home = () => {
     const dispatch = useDispatch();
     const images = useSelector(selectImageList)
-    const user = useSelector(selectUser)
     const [loaded, setLoaded] = useState(false)
 
     const callApi = async () => {
@@ -26,23 +31,14 @@ const Home = () => {
         dispatch(openModal())
     }
 
-    const upload = (e) =>{
-        e.preventDefault();
-        uploadImage(e, user.userId);
-    }
-
     return (
-        <>
+        <StyledHome>
             { images && images.map((img, key) => 
                 <a onClick={(e) => handleclick(e,img)} key={key}>
-                    <Image src={`${img.path}?t=${new Date().getTime()}`} alt='' />
+                    <ImageListItem img={img}/>
                 </a>
             )}
-             <form onSubmit={(e) => upload(e)}>
-                    <input type='file' name='path' />
-                    <input type='submit' value = 'Upload' />
-            </form>
-        </>
+        </StyledHome>
     )
 }
 

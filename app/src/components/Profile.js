@@ -1,10 +1,18 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { userImages } from '../services/api_helper';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../features/userSlice';
-import {setActiveImage, openModal} from '../features/activeImageSlice';
-import {userImages, uploadImage} from '../services/api_helper';
+import { setActiveImage, openModal } from '../features/activeImageSlice';
 import { setImageList, selectImageList } from '../features/imageListSlice';
-import { Redirect } from 'react-router-dom';
+
+// Components
+import ImageListItem from './ImageListItem';
+
+// Styles
+import { StyledHome, H2 } from '../styles/Home';
 
 
 const Profile = () => {
@@ -26,21 +34,20 @@ const Profile = () => {
     if (user.userId && !images[0]) {
         getImages()
     }
-    const upload = (e) =>{
-        e.preventDefault();
-        uploadImage(e, user.userId);
-    }
+
     
     return (
-        <div>
+        <>
+        <H2>{user.username}'s Images</H2>
+        <StyledHome>
             {!user.userId && <Redirect to='/' />}
-            <h2>{user.username}</h2>
-            { images.map((img, key) => <img src={`${img.path}?t=${new Date().getTime()}`} key={key} alt='' onClick={(e) => handleclick(e,img)}/> )}
-            <form onSubmit={(e) => upload(e)}>
-                    <input type='file' name='path' />
-                    <input type='submit' value = 'Upload' />
-            </form>
-        </div>
+            { images.map((img, key) => <a onClick={(e) => handleclick(e,img)} key={key}>
+                    <ImageListItem img={img}/>
+                </a>
+            )}
+            
+        </StyledHome>
+        </>
     )
 }
 export default Profile;

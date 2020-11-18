@@ -1,20 +1,18 @@
 import axios from 'axios';
-// redux
-// import store from '../app/store';
 
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'https://flow-images.herokuapp.com/api'
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://flow-images.herokuapp.com/api'
 })
 
 export const registerUser = async (registerData) => {
-    const resp = await api.post('/users/', registerData).catch((err) => (err.response));
+    let resp = await api.post('/users/', registerData).catch((err) => (err.response));
     let userId=null
     if (resp.status < 400 ) {
+        userId=resp.data.id;
+        resp = await api.post('/token/', registerData)
         localStorage.setItem('authToken', resp.data.access);
-        const user = await api.get(`/users/${registerData.username}`);
-        userId = user.data[0].id
     }
     return [resp, userId]
 }
@@ -44,14 +42,13 @@ export const editImage = async (id, edits) => {
         actions += key + ','
         changes += edits[key] +','
     }
-    const resp = await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`).then(resp => console.log(resp))
+    const resp = await api.put(`/edit/image/${id}/${actions.slice(0,-1)}/${changes.slice(0,-1)}/`)
     return resp
 }
 
 export const uploadImage =  (e, creatorId, title='none') => {
     const token = localStorage.getItem('authToken');
     const payload = new FormData()
-    console.log(e.target[0].files[0])
     payload.append('path', e.target[0].files[0])
     payload.append('title', title)
     payload.append('creator', creatorId)
@@ -60,8 +57,6 @@ export const uploadImage =  (e, creatorId, title='none') => {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${token}`
     }
-    }).then(resp =>{
-        console.log(resp)
     }).catch(err => {
         console.log(err)
     })
@@ -106,12 +101,11 @@ export const cropImage = async (id, left, top,right, bottom) => {
     right = Math.round(right)
     bottom = Math.round(bottom)
     const resp = await api.get(`/crop/${id}/${left}/${top}/${right}/${bottom}/`)
-    console.log(resp)
     return resp
 }
 
 export const randomImages = async () => {
-    const resp = await api.get('/images/random/8/');
+    const resp = await api.get('/images/random/12/');
     return resp.data
 }
 
@@ -136,6 +130,5 @@ export const logout_helper = () => {
 export const copyImage = async (userId, imageId) => {
     const token = localStorage.getItem('authToken');
     const resp = await api.get(`/images/copy/${userId}/${imageId}/`)
-    console.log(resp.data)
     return resp.data
 }
