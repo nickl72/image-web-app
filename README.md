@@ -3,7 +3,7 @@ This is a basic image editing app. Post MVP goals are to use Machine learning to
 
 [Live Site](https://flow-images.surge.sh/)
 
-[Backend Repo](https://github.com/nickl72/image-web-app-backend/tree/deployment)
+[Backend Repo](https://github.com/nickl72/image-web-app-backend/tree/main)
 
 # Project Goals
  
