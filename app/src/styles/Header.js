@@ -17,4 +17,8 @@ export const StyledHeader = styled.header`
     button {
         margin: 10px;
     }
+    img {
+        max-height: 1em;
+        width: auto;
+    }
 `
